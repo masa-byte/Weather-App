@@ -1,0 +1,71 @@
+type milimeters = number;
+type centimeters = number;
+type meters = number;
+type kilometersPerHour = number;
+type degrees = number;
+type percent = number;
+type seconds = number;
+type meterCube = number;
+
+export interface currentWeatherData {
+    time: Date;
+    temperature2m: number;
+    relativeHumidity2m: number;
+    apparentTemperature: number;
+    isDay: boolean;
+    precipitation: milimeters;
+    rain: milimeters;
+    showers: milimeters;
+    snowfall: centimeters;
+    weatherCode: number;
+    weatherDescription: string;
+    cloudCover: percent;
+    windSpeed10m: kilometersPerHour;
+    windDirection10m: degrees;
+};
+
+export interface dailyWeatherData {
+    time: Date;
+    weatherCode: number;
+    weatherDescription: string;
+    temperature2mMin: number;
+    temperature2mMax: number;
+    sunrise: Date;
+    sunset: Date;
+    daylightDuration: seconds;
+    sunshineDuration: seconds;
+    uvIndexMax: number;
+    precipitationSum: milimeters;
+    rainSum: milimeters;
+    showerSum: milimeters;
+    snowfallSum: centimeters;
+    precipitationHours: number;
+    precipitationProbabilityMax: percent;
+    windSpeed10mMax: kilometersPerHour;
+    windDirection10mDominant: degrees;
+    hours: hourlyWeatherData[];
+};
+
+export interface hourlyWeatherData {
+    time: Date;
+    temperature2m: number;
+    relativeHumidity2m: number;
+    apparentTemperature: number;
+    precipitationProbability: percent;
+    precipitation: milimeters;
+    rain: milimeters;
+    showers: milimeters;
+    snowfall: centimeters;
+    snowDepth: meters;
+    weatherCode: number;
+    weatherDescription: string;
+    cloudCover: percent;
+    visibility: meters;
+    windSpeed10m: kilometersPerHour;
+    windDirection10m: degrees;
+    temperature80m: number;
+    soilMoisture1To3cm: meterCube;
+    uvIndex: number;
+    isDay: boolean;
+    sunshineDuration: seconds;
+};
