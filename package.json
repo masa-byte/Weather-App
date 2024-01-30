@@ -7,5 +7,9 @@
         "start:all": "npm run start:server & npm run start:client",
         "start:server": "cd backend && start /B nest start",
         "start:client": "cd frontend && start /B ng serve -o"
+    },
+    "dependencies": {
+        "@nestjs/mongoose": "^10.0.2",
+        "mongoose": "^8.1.1"
     }
 }
