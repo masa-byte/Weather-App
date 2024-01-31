@@ -8,9 +8,10 @@ type seconds = number;
 type meterCube = number;
 
 export interface currentWeatherData {
+    cityName: string;
     time: Date;
     temperature2m: number;
-    relativeHumidity2m: number;
+    relativeHumidity2m: percent;
     apparentTemperature: number;
     isDay: boolean;
     precipitation: milimeters;
@@ -25,19 +26,20 @@ export interface currentWeatherData {
 };
 
 export interface dailyWeatherData {
+    cityName: string;
     time: Date;
     weatherCode: number;
     weatherDescription: string;
     temperature2mMin: number;
     temperature2mMax: number;
-    sunrise: Date;
-    sunset: Date;
+    sunrise: Date | null;
+    sunset: Date | null;
     daylightDuration: seconds;
     sunshineDuration: seconds;
     uvIndexMax: number;
     precipitationSum: milimeters;
     rainSum: milimeters;
-    showerSum: milimeters;
+    showersSum: milimeters;
     snowfallSum: centimeters;
     precipitationHours: number;
     precipitationProbabilityMax: percent;
@@ -49,7 +51,7 @@ export interface dailyWeatherData {
 export interface hourlyWeatherData {
     time: Date;
     temperature2m: number;
-    relativeHumidity2m: number;
+    relativeHumidity2m: percent;
     apparentTemperature: number;
     precipitationProbability: percent;
     precipitation: milimeters;

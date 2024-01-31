@@ -1,0 +1,69 @@
+<div class="day-container">
+    <div class="day-header" (click)="toggleDetails()">
+        <span>{{ hourlyWeather.time | date:'HH:mm'}}</span>
+        <span>{{ hourlyWeather.temperature2m }}°C</span>
+        <span>app: {{ hourlyWeather.apparentTemperature }}°C</span>
+        <span class="arrow-icon">{{ expanded ? '▼' : '▶' }}</span>
+    </div>
+    <div *ngIf="expanded" class="daily-details">
+        <div class="weather-icon-div">
+            <img class="weather-icon" [src]="iconUrl" alt="Weather Icon" />
+        </div>
+        <div class="daily-details-item">
+            <p>Weather description</p>
+            <p>{{ hourlyWeather.weatherDescription }} </p>
+        </div>
+        <div class="daily-details-item">
+            <p>UV index max</p>
+            <p>{{ hourlyWeather.uvIndex }} </p>
+        </div>
+        <div class="daily-details-item">
+            <p>Sunshine duration</p>
+            <p>{{ (hourlyWeather.sunshineDuration / 60).toFixed(2) }} m</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Temprature 80m</p>
+            <p>{{ hourlyWeather.temperature80m }}°C</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Precipitation probability</p>
+            <p>{{ hourlyWeather.precipitationProbability }}%</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Precipitation</p>
+            <p>{{ hourlyWeather.precipitation }} mm</p>
+        </div>
+        <div class="daily-details-item" *ngIf="hourlyWeather.rain > 0">
+            <p>Rain</p>
+            <p>{{ hourlyWeather.rain }} mm</p>
+        </div>
+        <div class="daily-details-item" *ngIf="hourlyWeather.showers > 0">
+            <p>Showers</p>
+            <p>{{ hourlyWeather.showers }} mm</p>
+        </div>
+        <div class="daily-details-item" *ngIf="hourlyWeather.snowfall > 0">
+            <p>Snowfall</p>
+            <p>{{ hourlyWeather.snowfall }} cm</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Cloud Cover</p>
+            <p>{{ hourlyWeather.cloudCover }}%</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Visibility</p>
+            <p>{{ hourlyWeather.visibility }}m</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Relative Humidity 2m</p>
+            <p>{{ hourlyWeather.relativeHumidity2m }}%</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Wind Direction</p>
+            <p>{{ hourlyWeather.windDirection10m }}°</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Wind Speed 10m</p>
+            <p>{{ hourlyWeather.windSpeed10m }}km/h</p>
+        </div>
+    </div>
+</div>

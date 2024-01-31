@@ -1,0 +1,76 @@
+.weather-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.weather-container.day {
+    background-color: #8ECAE6;
+}
+
+.weather-container.night {
+    background-color: #023047;
+}
+
+.weather-icon-div {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.weather-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.weather-info {
+    text-align: center;
+}
+
+.temperature {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.description {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+.location {
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.additional-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-item {
+    flex: 1;
+    text-align: center;
+}
+
+.view-mode-toggle {
+    margin-bottom: 10px;
+}
+
+.view-mode-toggle button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.view-mode-toggle button.selected {
+    background-color: #219EBC;
+    color: #fff;
+}

@@ -1,1 +1,69 @@
-<p>display works!</p>
+<div *ngIf="currentWeather != null" [class.day]="currentWeather!.isDay" [class.night]="!currentWeather!.isDay"
+    class="weather-container">
+    <div class="weather-icon-div">
+        <img class="weather-icon" [src]="iconUrl" alt="Weather Icon" />
+    </div>
+
+    <div class="weather-info">
+        <p class="location">{{ currentWeather!.cityName }}</p>
+    </div>
+
+    <div class="weather-info">
+        <p class="temperature">{{ currentWeather!.temperature2m }}°C</p>
+        <p class="description">{{ currentWeather!.weatherDescription }}</p>
+    </div>
+
+    <div class="additional-info">
+        <div class="info-item">
+            <p>Apparent temperature</p>
+            <p>{{ currentWeather!.apparentTemperature }}°C</p>
+        </div>
+        <div class="info-item">
+            <p>Humidity</p>
+            <p>{{ currentWeather!.relativeHumidity2m }}%</p>
+        </div>
+        <div class="info-item">
+            <p>Wind Speed</p>
+            <p>{{ currentWeather!.windSpeed10m }} km/h</p>
+        </div>
+        <div class="info-item">
+            <p>Precipitation</p>
+            <p>{{ currentWeather!.precipitation }} mm</p>
+        </div>
+        <div class="info-item" *ngIf="currentWeather!.rain > 0">
+            <p>Rain</p>
+            <p>{{ currentWeather!.rain }} mm</p>
+        </div>
+        <div class="info-item" *ngIf="currentWeather!.showers > 0">
+            <p>Showers</p>
+            <p>{{ currentWeather!.showers }} mm</p>
+        </div>
+        <div class="info-item" *ngIf="currentWeather!.snowfall > 0">
+            <p>Snowfall</p>
+            <p>{{ currentWeather!.snowfall }} mm</p>
+        </div>
+        <div class="info-item">
+            <p>Cloud Cover</p>
+            <p>{{ currentWeather!.cloudCover }}%</p>
+        </div>
+        <div class="info-item">
+            <p>Wind Direction</p>
+            <p>{{ currentWeather!.windDirection10m }}°</p>
+        </div>
+    </div>
+
+    <div class="view-mode-toggle">
+        <button mat-raised-button (click)="toggleViewMode('day')"
+            [class.selected]="selectedViewMode === 'day'">Daily</button>
+        <button mat-raised-button (click)="toggleViewMode('hour')"
+            [class.selected]="selectedViewMode === 'hour'">Hourly</button>
+    </div>
+
+    <div *ngIf="selectedViewMode === 'day'">
+        <app-day *ngFor="let day of dailyWeather!" [dailyWeather]="day"></app-day>
+    </div>
+
+    <div *ngIf="selectedViewMode === 'hour'">
+        <app-hour *ngFor="let hour of dailyWeather![0].hours" [hourlyWeather]="hour"></app-hour>
+    </div>
+</div>

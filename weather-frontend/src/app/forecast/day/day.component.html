@@ -1,0 +1,53 @@
+<div class="day-container">
+    <div class="day-header" (click)="toggleDetails()">
+        <span>{{ dailyWeather.time | date:'dd-MM'}}</span>
+        <span>max: {{ dailyWeather.temperature2mMax }}°C</span>
+        <span>min: {{ dailyWeather.temperature2mMin }}°C</span>
+        <span class="arrow-icon">{{ expanded ? '▼' : '▶' }}</span>
+    </div>
+    <div *ngIf="expanded" class="daily-details">
+        <div class="weather-icon-div">
+            <img class="weather-icon" [src]="iconUrl" alt="Weather Icon" />
+        </div>
+        <div class="daily-details-item">
+            <p>Weather description</p>
+            <p>{{ dailyWeather.weatherDescription }} </p>
+        </div>
+        <div class="daily-details-item">
+            <p>UV index max</p>
+            <p>{{ dailyWeather.uvIndexMax }} </p>
+        </div>
+        <div class="daily-details-item">
+            <p>Daylight duration</p>
+            <p>{{ (dailyWeather.daylightDuration / 60).toFixed(2) }} m</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Sunshine duration</p>
+            <p>{{ (dailyWeather.sunshineDuration / 60).toFixed(2) }} m</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Precipitation sum</p>
+            <p>{{ dailyWeather.precipitationSum }} mm</p>
+        </div>
+        <div class="daily-details-item" *ngIf="dailyWeather.rainSum > 0">
+            <p>Rain sum</p>
+            <p>{{ dailyWeather.rainSum }} mm</p>
+        </div>
+        <div class="daily-details-item" *ngIf="dailyWeather.showersSum > 0">
+            <p>Showers sum</p>
+            <p>{{ dailyWeather.showersSum }} mm</p>
+        </div>
+        <div class="daily-details-item" *ngIf="dailyWeather.snowfallSum > 0">
+            <p>Snowfall sum</p>
+            <p>{{ dailyWeather.snowfallSum }} cm</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Precipitation probability max</p>
+            <p>{{ dailyWeather.precipitationProbabilityMax }}%</p>
+        </div>
+        <div class="daily-details-item">
+            <p>Wind Speed 10m max</p>
+            <p>{{ dailyWeather.windSpeed10mMax }}km/h</p>
+        </div>
+    </div>
+</div>

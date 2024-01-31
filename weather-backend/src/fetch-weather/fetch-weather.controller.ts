@@ -8,7 +8,7 @@ export class FetchWeatherController {
     @Get()
     fetchWeather(
         @Query('lat') latitude: number, 
-        @Query('long') longitude: number,
+        @Query('lon') longitude: number,
         @Query('forecastDays') forecastDays: number,
         @Query('timezone') timezone: string
         ): Promise<any> {
