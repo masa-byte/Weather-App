@@ -43,3 +43,4 @@ if ($npmVersion -and $nestVersion -and $ngVersion -and $dockerRunning) {
     # Starting server and clients
     npm run start:all
 }
+$unos = Read-Host "Pritisni enter da zatvoris konzolu"

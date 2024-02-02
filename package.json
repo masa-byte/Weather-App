@@ -1,12 +1,12 @@
 {
     "scripts": {
         "install:all": "npm run install:backend && npm run install:frontend && npm run start-docker",
-        "install:backend": "cd backend && npm install",
-        "install:frontend": "cd frontend && npm install",
-        "start-docker": "cd backend && docker-compose up -d",
+        "install:backend": "cd weather-backend && npm install",
+        "install:frontend": "cd weather-frontend && npm install",
+        "start-docker": "cd weather-backend && docker-compose up -d",
         "start:all": "npm run start:server & npm run start:client",
-        "start:server": "cd backend && start /B nest start",
-        "start:client": "cd frontend && start /B ng serve -o"
+        "start:server": "cd weather-backend && start /B nest start",
+        "start:client": "cd weather-frontend && start /B ng serve -o"
     },
     "dependencies": {
         "@nestjs/mongoose": "^10.0.2",
