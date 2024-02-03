@@ -3,20 +3,19 @@
   <div class="comment-form-title">Write comment</div>
   <comment-form
     submitLabel="Write"
+    [hasCancelButton]="false"
     (handleSubmit)="addComment({ text: $event, parentId: null })"
+    (handleCancel)="setActiveComment(null)"
   >
   </comment-form>
   <div class="comments-container">
     <comment
-      *ngFor="let rootComment of getRootComments()"
-      [comment]="rootComment"
-      [replies]="getReplies(rootComment.id)"
+      *ngFor="let comment of comments"
+      [comment]="comment"
+      [parentId]="null"
       [activeComment]="activeComment"
       (setActiveComment)="setActiveComment($event)"
       (addComment)="addComment($event)"
-      (deleteComment)="deleteComment($event)"
-      (updateComment)="updateComment($event)"
-      [currentUserId]="currentUserId"
     >
     </comment>
   </div>

@@ -7,68 +7,33 @@
       <div class="comment-author">{{ comment.username }}</div>
       <div>{{ createdAt }}</div>
     </div>
-    <div class="comment-text" *ngIf="!isEditing()">{{ comment.body }}</div>
-    <comment-form
-      *ngIf="isEditing()"
-      submitLabel="Update"
-      [hasCancelButton]="true"
-      [initialText]="comment.body"
-      (handleSubmit)="
-        updateComment.emit({ text: $event, commentId: comment.id })
-      "
-      (handleCancel)="setActiveComment.emit(null)"
-    ></comment-form>
+    <div class="comment-text">{{ comment.body }}</div>
     <div class="comment-actions">
       <div
-        *ngIf="canReply"
         class="comment-action"
         (click)="
-          setActiveComment.emit({
-            id: comment.id,
-            type: activeCommentType.replying
-          })
+          setActiveComment.emit(comment.id);
         "
       >
         Reply
       </div>
-      <div
-        *ngIf="canEdit"
-        class="comment-action"
-        (click)="
-          setActiveComment.emit({
-            id: comment.id,
-            type: activeCommentType.editing
-          })
-        "
-      >
-        Edit
-      </div>
-      <div
-        *ngIf="canDelete"
-        class="comment-action"
-        (click)="deleteComment.emit(comment.id)"
-      >
-        Delete
-      </div>
+    </div>
+    <div class="replies" *ngIf="comment.replies.length > 0">
+      <comment
+        *ngFor="let reply of comment.replies"
+        [comment]="reply"
+        [parentId]="comment.id"
+        (setActiveComment)="setActiveComment.emit($event)"
+        [activeComment]="activeComment"
+        (addComment)="addComment.emit($event)"
+      ></comment>
     </div>
     <comment-form
       *ngIf="isReplying()"
       submitLabel="Reply"
-      (handleSubmit)="addComment.emit({ text: $event, parentId: replyId })"
+      [hasCancelButton]="true"
+      (handleSubmit)="addComment.emit({ text: $event, parentId: comment.id })"
+      (handleCancel)="setActiveComment.emit(null)"
     ></comment-form>
-    <div class="replies" *ngIf="replies.length > 0">
-      <comment
-        *ngFor="let reply of replies"
-        [comment]="reply"
-        (setActiveComment)="setActiveComment.emit($event)"
-        [activeComment]="activeComment"
-        (updateComment)="updateComment.emit($event)"
-        (deleteComment)="deleteComment.emit($event)"
-        (addComment)="addComment.emit($event)"
-        [parentId]="comment.id"
-        [replies]="[]"
-        [currentUserId]="currentUserId"
-      ></comment>
-    </div>
   </div>
 </div>

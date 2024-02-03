@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs';
 import { CommentsService } from '../../services/comments.service';
-import { ActiveCommentInterface } from '../../types/activeComment.interface';
 import { CommentInterface } from '../../types/comment.interface';
 
 @Component({
@@ -8,11 +8,8 @@ import { CommentInterface } from '../../types/comment.interface';
   templateUrl: './comments.component.html',
 })
 export class CommentsComponent implements OnInit {
-  @Input() currentUserId: string = "2";
-  // currentUserId: string = "2";
-
   comments: CommentInterface[] = [];
-  activeComment: ActiveCommentInterface | null = null;
+  activeComment: string | null = null;
 
   constructor(private commentsService: CommentsService) {}
 
@@ -22,40 +19,7 @@ export class CommentsComponent implements OnInit {
     });
   }
 
-  getRootComments(): CommentInterface[] {
-    return this.comments.filter((comment) => comment.parentId === null);
-  }
-
-  updateComment({
-    text,
-    commentId,
-  }: {
-    text: string;
-    commentId: string;
-  }): void {
-    this.commentsService
-      .updateComment(commentId, text)
-      .subscribe((updatedComment) => {
-        this.comments = this.comments.map((comment) => {
-          if (comment.id === commentId) {
-            return updatedComment;
-          }
-          return comment;
-        });
-
-        this.activeComment = null;
-      });
-  }
-
-  deleteComment(commentId: string): void {
-    this.commentsService.deleteComment(commentId).subscribe(() => {
-      this.comments = this.comments.filter(
-        (comment) => comment.id !== commentId
-      );
-    });
-  }
-
-  setActiveComment(activeComment: ActiveCommentInterface | null): void {
+  setActiveComment(activeComment: string | null): void {
     this.activeComment = activeComment;
   }
 
@@ -68,18 +32,11 @@ export class CommentsComponent implements OnInit {
   }): void {
     this.commentsService
       .createComment(text, parentId)
-      .subscribe((createdComment) => {
-        this.comments = [...this.comments, createdComment];
+      .pipe(switchMap(() => this.commentsService.getComments()))
+      .subscribe((createdComments) => {
+        //this.comments = [...this.comments, createdComment];
+        this.comments = createdComments;
         this.activeComment = null;
       });
-  }
-
-  getReplies(commentId: string): CommentInterface[] {
-    return this.comments
-      .filter((comment) => comment.parentId === commentId)
-      .sort(
-        (a, b) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      );
   }
 }
