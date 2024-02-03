@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainPageModule } from './main-page/main-page.module';
 import { weatherReducer } from './store/weather.reducer';
-import { ForecastModule } from './forecast/forecast.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,7 @@ import { ForecastModule } from './forecast/forecast.module';
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent]
 })

@@ -8,11 +8,11 @@
 }
 
 .weather-container.day {
-    background-color: #8ECAE6;
+    background: linear-gradient(to bottom, #61b2d8, #ffffff);
 }
 
 .weather-container.night {
-    background-color: #023047;
+    background: linear-gradient(to bottom, #023047, #ffffff);
 }
 
 .weather-icon-div {
@@ -66,11 +66,21 @@
     padding: 5px 10px;
     margin-right: 10px;
     cursor: pointer;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     background-color: #fff;
+    font-size: larger;
+    width: 10%;
 }
 
 .view-mode-toggle button.selected {
-    background-color: #219EBC;
+    background-color: #FFB703;
+    border-color: #FFB703;
+    font-weight: bolder;
     color: #fff;
+}
+
+.chart-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
 }
