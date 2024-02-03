@@ -15,6 +15,7 @@ import * as WeatherActions from '../store/weather.actions';
 export class MainPageComponent implements OnInit {
 
   cityName: string = 'Nis';
+  isDay: boolean = true;
 
   constructor(
     private weatherService: WeatherService,
@@ -23,10 +24,20 @@ export class MainPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.weatherService.getCityParams(this.cityName).pipe(
+    this.getWeatherData(this.cityName);
+  }
+
+  searchCityForecast(cityName: string) {
+    if (cityName !== '') {
+      this.getWeatherData(cityName);
+    }
+  }
+
+  getWeatherData(cityName: string) {
+    this.weatherService.getCityParams(cityName).pipe(
       switchMap((cityParamsResponse) => {
-        if (cityParamsResponse.body.error) {
-          this.openSnackBar(cityParamsResponse.body.error);
+        if (!cityParamsResponse.body.results) {
+          this.openSnackBar("City not found");
           return of(null);
         } else {
           return this.weatherService.getWeatherData(
@@ -38,19 +49,21 @@ export class MainPageComponent implements OnInit {
         }
       })
     ).subscribe((weatherDataResponse) => {
-      if (weatherDataResponse && weatherDataResponse.body.error) {
-        this.openSnackBar(weatherDataResponse.body.error);
+      if (!weatherDataResponse) {
+        this.openSnackBar("Weather data not found");
       } else {
-        this.mapWeatherDataToCurrentWeather(weatherDataResponse?.body);
-        this.mapWeatherDataToDailyWeather(weatherDataResponse?.body);
+        cityName = cityName.charAt(0).toUpperCase() + cityName.slice(1);
+        this.mapWeatherDataToCurrentWeather(weatherDataResponse?.body, cityName);
+        this.mapWeatherDataToDailyWeather(weatherDataResponse?.body, cityName);
       }
     });
   }
 
-  mapWeatherDataToCurrentWeather(weatherData: any) {
+  mapWeatherDataToCurrentWeather(weatherData: any, cityName: string) {
     const cur = weatherData.current;
+    this.isDay = cur.isDay == 1 ? true : false;
     let currentWeather: currentWeatherData = {
-      cityName: this.cityName,
+      cityName: cityName,
       time: cur.time,
       temperature2m: Math.round(cur.temperature2m),
       relativeHumidity2m: cur.relativeHumidity2m,
@@ -69,12 +82,12 @@ export class MainPageComponent implements OnInit {
     this.store.dispatch(WeatherActions.setCurrentWeather({ currentWeather: currentWeather }));
   }
 
-  mapWeatherDataToDailyWeather(weatherData: any) {
+  mapWeatherDataToDailyWeather(weatherData: any, cityName: string) {
     const days = weatherData.daily;
     let dailyWeather: dailyWeatherData[] = [];
     for (let i = 0; i < days.time.length; i++) {
       let dailyWeatherData: dailyWeatherData = {
-        cityName: this.cityName,
+        cityName: cityName,
         time: days.time[i],
         weatherCode: days.weatherCode[i],
         weatherDescription: weatherCodes[days.weatherCode[i]],

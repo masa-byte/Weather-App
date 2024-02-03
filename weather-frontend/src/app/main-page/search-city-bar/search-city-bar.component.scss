@@ -1,0 +1,39 @@
+.search-filter-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #6A90D1;
+}
+
+mat-form-field {
+    width: 100%;
+    flex-grow: 1;
+}
+
+mat-icon {
+    font-size: 24px;
+    color: #666;
+}
+
+.mdc-form-field {
+    width: 100%;
+}
+
+.search-bar {
+    background-color: transparent !important;
+    color: #ffffff !important;
+    font-size: larger !important;
+}
+
+::ng-deep {
+    html {
+        --mdc-filled-text-field-container-color: #transparent;
+        --mdc-typography-body2-font-weight: bolder;
+        --mdc-typography-body2-letter-spacing: 0.4px;
+    }
+
+    .mdc-text-field--filled {
+        --mdc-filled-text-field-active-indicator-height: 0px !important;
+    }
+}

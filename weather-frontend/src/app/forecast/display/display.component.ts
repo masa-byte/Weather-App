@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { currentWeatherData, dailyWeatherData } from '../forecast.model';
-import { Store } from '@ngrx/store';
-import { selectCurrentWeather, selectDailyWeather } from '../../store/weather.selector';
-import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { currentWeatherData, dailyWeatherData } from '../forecast.model';
+import { selectCurrentWeather, selectDailyWeather } from '../../store/weather.selector';
 import { envLineChartOptions } from '../../environment/environment';
 
 @Component({
@@ -24,23 +24,17 @@ export class DisplayComponent implements OnInit {
 
   tempLineChartData: ChartConfiguration<'line'>['data'] = {
     labels: [],
-    datasets: [
-      { data: [], label: 'Max °C', borderColor: 'red', fill: false },
-      { data: [], label: 'Min °C', borderColor: 'blue', fill: false }
-    ]
+    datasets: []
   };
   precipitationLineChartData: ChartConfiguration<'line'>['data'] = {
     labels: [],
-    datasets: [
-      { data: [], label: 'Precipitation (mm)', borderColor: 'blue', fill: false },
-      { data: [], label: 'Snow (cm)', borderColor: 'purple', fill: false },
-      { data: [], label: 'Rain (mm)', borderColor: 'green', fill: false },
-    ]
+    datasets: []
   };
 
   constructor(
     private store: Store,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -56,13 +50,22 @@ export class DisplayComponent implements OnInit {
     this.store.select(selectDailyWeather).subscribe((dailyWeather) => {
       if (dailyWeather) {
         this.dailyWeather = dailyWeather!;
-        this.tempLineChartData.labels = dailyWeather!.map((day) => this.formatDate(day.time));
-        this.tempLineChartData.datasets[0].data = dailyWeather!.map((day) => day.temperature2mMax);
-        this.tempLineChartData.datasets[1].data = dailyWeather!.map((day) => day.temperature2mMin);
-        this.precipitationLineChartData.labels = dailyWeather!.map((day) => this.formatDate(day.time));
-        this.precipitationLineChartData.datasets[0].data = dailyWeather!.map((day) => day.precipitationSum);
-        this.precipitationLineChartData.datasets[1].data = dailyWeather!.map((day) => day.snowfallSum);
-        this.precipitationLineChartData.datasets[2].data = dailyWeather!.map((day) => day.rainSum);
+        this.tempLineChartData = {
+          datasets: [
+            { data: dailyWeather!.map((day) => day.temperature2mMax), label: 'Max °C', borderColor: 'red', fill: false },
+            { data: dailyWeather!.map((day) => day.temperature2mMin), label: 'Min °C', borderColor: 'blue', fill: false }
+          ],
+          labels: dailyWeather!.map((day) => this.formatDate(day.time))
+        };
+
+        this.precipitationLineChartData = {
+          datasets: [
+            { data: dailyWeather!.map((day) => day.showersSum), label: 'Showers (mm)', borderColor: 'blue', fill: false },
+            { data: dailyWeather!.map((day) => day.snowfallSum), label: 'Snow (cm)', borderColor: 'purple', fill: false },
+            { data: dailyWeather!.map((day) => day.rainSum), label: 'Rain (mm)', borderColor: 'green', fill: false }
+          ],
+          labels: dailyWeather!.map((day) => this.formatDate(day.time))
+        };
       }
     });
   }
