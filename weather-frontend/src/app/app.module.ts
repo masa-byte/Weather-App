@@ -1,19 +1,19 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommentsModule } from './comments/comments.module';
 import { MainPageModule } from './main-page/main-page.module';
 import { weatherReducer } from './store/weather.reducer';
-import { ForecastModule } from './forecast/forecast.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +27,7 @@ import { ForecastModule } from './forecast/forecast.module';
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),
+    CommentsModule,
   ],
   providers: [
     provideClientHydration(),
