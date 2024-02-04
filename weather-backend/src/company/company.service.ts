@@ -14,6 +14,7 @@ export class CompanyService {
         const companyToCreate = new Company();
         await companyToCreate.setPassword(company.password);
         company.password = companyToCreate.password; 
+        company.type = Role.Company;
 
         const newCompany = new this.companyModel(company);
         return newCompany.save();
@@ -47,6 +48,8 @@ export class CompanyService {
 
     async comparePassword(password: string, id: string): Promise<boolean> {
         const company = await this.companyModel.findById(id).exec();
-        return company.comparePassword(password);
+        const cmp = new Company();
+        cmp.password = company.password;
+        return cmp.comparePassword(password);
     }
 }

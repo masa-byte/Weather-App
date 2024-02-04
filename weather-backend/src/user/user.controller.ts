@@ -36,7 +36,7 @@ export class UserController {
         }
     }
 
-    @Get('compare-password/:password/:id')
+    @Get('compare-password/:id/:password')
     async comparePassword(@Param('password') password: string, @Param('id') id: string): Promise<boolean> {
         try {
             const res = await this.userService.comparePassword(password, id)

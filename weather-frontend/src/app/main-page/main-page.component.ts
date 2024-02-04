@@ -5,7 +5,8 @@ import { switchMap, of } from 'rxjs';
 import { currentWeatherData, dailyWeatherData, hourlyWeatherData } from '../forecast/forecast.model';
 import { weatherCodes } from '../environment/environment';
 import { Store } from '@ngrx/store';
-import * as WeatherActions from '../store/weather.actions';
+import * as WeatherActions from '../store/actions/weather.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -20,7 +21,8 @@ export class MainPageComponent implements OnInit {
   constructor(
     private weatherService: WeatherService,
     private snackBar: MatSnackBar,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -34,6 +36,8 @@ export class MainPageComponent implements OnInit {
   }
 
   openShopPage() {
+    // for now
+    this.router.navigate(['/signInUser']);
   }
 
   getWeatherData(cityName: string) {

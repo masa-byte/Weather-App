@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { CompanyService } from './company.service';
 import { Company } from './company.schema';
+import { Public } from 'src/auth/decorators/metadata';
 
 @Controller('company')
 export class CompanyController {
@@ -19,6 +20,7 @@ export class CompanyController {
         }
     }
 
+    @Public()
     @Get(':id')
     async getCompanyById(@Param('id') id: string) {
         try {

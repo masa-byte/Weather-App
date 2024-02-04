@@ -7,10 +7,12 @@ import { JwtStrategy } from './strategy/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { jwtConstants } from './constants';
 import { LocalStrategy } from './strategy/local.strategy';
+import { CompanyModule } from 'src/company/company.module';
 
 @Module({
     imports: [
         UserModule,
+        CompanyModule,
         JwtModule.register({
             secret: jwtConstants.secret,
             signOptions: { expiresIn: '24h' }

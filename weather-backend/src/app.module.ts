@@ -10,15 +10,32 @@ import { FetchCityController } from './fetch-city/fetch-city.controller';
 import { CompanyModule } from './company/company.module';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { RolesGuard } from './auth/guards/roles.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
     MongooseModule.forRoot(mongoDbConnectionString),
+    AuthModule,
     CompanyModule,
     ProductModule,
     UserModule
   ],
   controllers: [AppController, FetchWeatherController, FetchCityController],
-  providers: [AppService, FetchWeatherService, FetchCityService],
+  providers: [
+    AppService, 
+    FetchWeatherService, 
+    FetchCityService,
+    {
+      provide: 'APP_GUARD',
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule { }

@@ -48,6 +48,8 @@ export class UserService {
 
     async comparePassword(password: string, id: string): Promise<boolean> {
         const user = await this.userModel.findById(id).exec();
-        return user.comparePassword(password);
+        const usr = new User();
+        usr.password = user.password;
+        return usr.comparePassword(password);
     }
 }

@@ -3,7 +3,7 @@ import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { currentWeatherData, dailyWeatherData } from '../forecast.model';
-import { selectCurrentWeather, selectDailyWeather } from '../../store/weather.selector';
+import { selectCurrentWeather, selectDailyWeather } from '../../store/selectors/weather.selector';
 import { envLineChartOptions } from '../../environment/environment';
 
 @Component({

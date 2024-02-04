@@ -1,0 +1,67 @@
+<div class="profile">
+    <div class="centeredDiv">
+        <div class="profile-picture">
+            <img [src]="img" alt="Profile Image" />
+        </div>
+        <div class="profile-name">
+            <h2>{{
+                (user$ | async)!.type == 'company' ? 
+                (user$ | async)!.name : 
+                (user$ | async)!.name + " " + (user$ | async)!.surname }}
+            </h2>
+        </div>
+    </div>
+    <div class="profile-details">
+        <div class="profile-row" *ngIf="(user$ | async)!.type != 'company'">
+            <span class="profile-label">Date Of Birth:</span>
+            <span>{{ (user$ | async)!.birthDate | date:'dd-MM-yyyy' }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">Email:</span>
+            <span>{{ (user$ | async)!.email }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">Phone:</span>
+            <span>{{ (user$ | async)!.phone }}</span>
+        </div>
+        <div class="profile-row" *ngIf="(user$ | async)!.type == 'company'">
+            <span class="profile-label">Year established:</span>
+            <span>{{ (user$ | async)!.yearEstablished }}</span>
+        </div>
+        <div class="profile-row" *ngIf="(user$ | async)!.type == 'company'">
+            <span class="profile-label">Regular price factor</span>
+            <span>{{ (user$ | async)!.regularPriceFactor }}</span>
+        </div>
+        <div class="profile-row" *ngIf="(user$ | async)!.type == 'company'">
+            <span class="profile-label">Return price factor</span>
+            <span>{{ (user$ | async)!.returnPriceFactor }}</span>
+        </div>
+        <div class="profile-row" *ngIf="(user$ | async)!.type == 'company'">
+            <span class="profile-label">Discount:</span>
+            <span>{{ (user$ | async)!.discount }}</span>
+        </div>
+        <div class="profile-row" *ngIf="(user$ | async)!.type == 'company'">
+            <span class="profile-label">Rating:</span>
+            <span>{{ ((user$ | async)!.rating)! }}</span>
+        </div>
+    </div>
+
+    <div class="edit">
+        <div class="edit-profile">
+            <button type="button" aria-label="Delete profile" (click)="deleteProfile()" mat-raised-button
+                class="edit-button">
+                Delete profile
+                <mat-icon aria-label="Delete icon">delete</mat-icon>
+            </button>
+        </div>
+        <div class="edit-profile">
+            <button type="button" aria-label="Edit profile" (click)="editProfile()" mat-raised-button
+                class="edit-button">
+                Edit profile
+                <mat-icon aria-label="Edit icon">edit</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+<app-background-picture [src]="'assets/back2.jpg'"></app-background-picture>
