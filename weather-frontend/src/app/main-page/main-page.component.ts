@@ -33,6 +33,9 @@ export class MainPageComponent implements OnInit {
     }
   }
 
+  openShopPage() {
+  }
+
   getWeatherData(cityName: string) {
     this.weatherService.getCityParams(cityName).pipe(
       switchMap((cityParamsResponse) => {

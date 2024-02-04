@@ -9,7 +9,6 @@ import { FormControl } from '@angular/forms';
 })
 export class SearchCityBarComponent {
 
-  searchText: string = '';
   searchControl = new FormControl();
   @Output() cityName = new EventEmitter<string>();
 
@@ -21,12 +20,12 @@ export class SearchCityBarComponent {
         debounceTime(500),
         distinctUntilChanged(),
       )
-      .subscribe(() => {
-        this.search();
+      .subscribe((value) => {
+        this.search(value);
       });
   }
 
-  search() {
-    this.cityName.emit(this.searchText);
+  search(cityName: string = '') {
+    this.cityName.emit(cityName);
   }
 }
