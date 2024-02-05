@@ -10,7 +10,6 @@ export class ProductService {
     ) { }
 
     async createProduct(product: Product): Promise<Product> {
-        console.log(product);
         const newProduct = new this.productModel(product);
         return newProduct.save();
     }
@@ -21,19 +20,20 @@ export class ProductService {
 
     async getProductsByPageIndexPageSize(pageIndex: number, pageSize: number): Promise<Product[]> {
         return this.productModel
-        .find()
-        .skip(pageIndex * pageSize)
-        .limit(pageSize)
-        .populate('company', 'name location description')
-        .exec();
+            .find()
+            .skip(pageIndex * pageSize)
+            .limit(pageSize)
+            .populate('company', 'name location description')
+            .exec();
     }
 
     async getProductById(id: string): Promise<Product> {
         return this.productModel.findById(id).exec();
     }
 
-    // TO DO
-    // get products by company
+    async getProductsByCompany(id: string): Promise<Product[]> {
+        return this.productModel.find({ company: id }).exec();
+    }
 
     async updateProduct(id: string, product: Product): Promise<Product> {
         return this.productModel.findByIdAndUpdate(id, product, { new: true }).exec();

@@ -68,8 +68,10 @@ export class ProductFormComponent {
         })
       )
       .subscribe((product) => {
-        if (product)
+        if (product) {
           this.product = { ...product };
+          this.setCategories();
+        }
       });
 
     this.userSubscription = this.store.select(selectUser).subscribe((user) => {
@@ -87,6 +89,7 @@ export class ProductFormComponent {
   }
 
   action() {
+    this.product.category = [];
     this.getCategories();
     this.product.company = this.user!.id;
 
@@ -117,6 +120,15 @@ export class ProductFormComponent {
 
   get categories(): FormArray {
     return this.productCategoriesFormGroup.get('categories') as FormArray;
+  }
+
+  setCategories() {
+    this.categories.removeAt(0);
+    this.product.category.forEach((category) => {
+      this.categories.push(this.fb.group({
+        name: [category, Validators.required]
+      }));
+    });
   }
 
   addCategory() {

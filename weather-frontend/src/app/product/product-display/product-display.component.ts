@@ -40,7 +40,8 @@ export class ProductDisplayComponent {
   }
 
   editProduct() {
-    // TO DO
+    this.store.dispatch(ProductActions.selectProduct({ id: this.product!.id }));
+    this.router.navigate(['productForm', 'true']);
   }
 
   deleteProduct() {

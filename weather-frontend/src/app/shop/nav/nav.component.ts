@@ -31,7 +31,7 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   addNewProduct() {
-    this.router.navigate(['productForm']);
+    this.router.navigate(['productForm', 'false']);
   }
 
   openMyProducts() {

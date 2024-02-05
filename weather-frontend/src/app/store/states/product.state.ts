@@ -9,5 +9,6 @@ export interface ProductState extends EntityState<Product> {
     error: string | null;
     sortAscending: boolean;
     sortingCriteria: string;
+    selectedCategories: string[];
     searchText: string;
 }

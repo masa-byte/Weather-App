@@ -13,6 +13,7 @@ export const initialState: ProductState = productAdapter.getInitialState({
     error: '',
     sortAscending: true,
     sortingCriteria: 'noCriteria',
+    selectedCategories: [],
     searchText: ''
 });
 
@@ -86,11 +87,12 @@ export const productReducer = createReducer(
             error: ''
         };
     }),
-    on(ProductActions.sortProducts, (state, { sortingCriteria, sortAscending, searchText }) => {
+    on(ProductActions.sortProducts, (state, { sortingCriteria, sortAscending, selectedCategories, searchText }) => {
         return {
             ...state,
             sortingCriteria: sortingCriteria,
             sortAscending: sortAscending,
+            selectedCategories: selectedCategories,
             searchText: searchText
         };
     }),

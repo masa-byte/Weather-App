@@ -51,7 +51,7 @@ export const clearProductError = createAction('[Product] Clear Error');
 
 export const sortProducts = createAction(
     '[Product] Sort Products',
-    props<{ sortingCriteria: string; sortAscending: boolean, searchText: string }>()
+    props<{ sortingCriteria: string; sortAscending: boolean, selectedCategories: string[], searchText: string }>()
 );
 
 export const clearProducts = createAction('[Product] Clear Products');

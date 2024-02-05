@@ -15,6 +15,7 @@ import { DeleteDialogModule } from '../delete-dialog/delete-profile.module';
 import { BackgroundPictureModule } from '../background-picture/background-picture.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProductModule } from '../product/product.module';
+import { SearchBarModule } from '../search-bar/search-bar.module';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ProductModule } from '../product/product.module';
     MatIconModule,
     BackgroundPictureModule,
     MatPaginatorModule,
-    ProductModule
+    ProductModule,
+    SearchBarModule
   ]
 })
 export class ShopModule { }

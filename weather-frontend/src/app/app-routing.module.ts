@@ -23,7 +23,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'productForm',
+    path: 'productForm/:editing',
     component: ProductFormComponent,
     pathMatch: 'full',
   },

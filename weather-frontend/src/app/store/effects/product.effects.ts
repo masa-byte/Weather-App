@@ -44,7 +44,6 @@ export class ProductEffects {
                             const { _id, ...productWithout_Id } = product;
                             return productWithout_Id as Product;
                         });
-                        console.log(allProducts);
 
                         return ProductActions.loadProductsSuccess({ product: allProducts });
                     }),
@@ -69,6 +68,25 @@ export class ProductEffects {
                     }),
                     catchError((error) => {
                         return of(ProductActions.addProductFailure({ error: 'Failed to add product' }));
+                    })
+                )
+            )
+        )
+    );
+
+    updateProduct$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ProductActions.updateProduct),
+            switchMap(({ product }) =>
+                this.productService.updateProduct(product).pipe(
+                    map((response) => {
+                        let body = response.body;
+                        let product: Product = body as Product;
+
+                        return ProductActions.updateProductSuccess({ product: product });
+                    }),
+                    catchError((error) => {
+                        return of(ProductActions.updateProductFailure({ error: 'Failed to update product' }));
                     })
                 )
             )

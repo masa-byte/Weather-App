@@ -47,6 +47,11 @@ export const selectSortAscending = createSelector(
     (state) => state.sortAscending
 );
 
+export const selectSelectedCategories = createSelector(
+    selectProductState,
+    (state) => state.selectedCategories
+);
+
 export const selectSearchText = createSelector(
     selectProductState,
     (state) => state.searchText
@@ -56,12 +61,18 @@ export const selectFilteredProducts = createSelector(
     selectProductEntities,
     selectSortingCriteria,
     selectSortAscending,
+    selectSelectedCategories,
     selectSearchText,
-    (entities, sorting, ascending, searchText) => {
+    (entities, sorting, ascending, selectedCategories, searchText) => {
         let arrayOfProducts = Object.values(entities!);
 
-        if (searchText !== '') 
-            arrayOfProducts = arrayOfProducts.filter((product: any) => product.name.toLowerCase().includes(searchText.toLowerCase()));
+        if (searchText !== '')
+            arrayOfProducts = arrayOfProducts.filter((product: any) =>
+                product.name.toLowerCase().includes(searchText.toLowerCase()));
+
+        if (selectedCategories.length > 0)
+            arrayOfProducts = arrayOfProducts.filter((product: any) =>
+                product.category.some((category: string) => selectedCategories.includes(category)));
 
         if (sorting === 'noCriteria')
             return arrayOfProducts;

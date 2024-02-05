@@ -3,11 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Company } from './company.schema';
 import { Role } from 'src/auth/enums/role.enum';
+import { ProductService } from 'src/product/product.service';
 
 @Injectable()
 export class CompanyService {
     constructor(
-        @InjectModel(Company.name) private companyModel: Model<Company>
+        @InjectModel(Company.name) private companyModel: Model<Company>,
+        private productService: ProductService
     ) { }
 
     async createCompany(company: Company): Promise<Company> {
@@ -41,9 +43,11 @@ export class CompanyService {
     }
 
     async deleteCompany(id: string): Promise<Company> {
+        const products = await this.productService.getProductsByCompany(id);
+        products.forEach(async product => {
+            await this.productService.deleteProduct(product._id);
+        });
         return this.companyModel.findByIdAndDelete(id).exec();
-        // TO DO
-        // delete all products associated with company
     }
 
     async comparePassword(password: string, id: string): Promise<boolean> {
