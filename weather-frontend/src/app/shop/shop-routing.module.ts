@@ -14,7 +14,6 @@ const routes: Routes = [
         component: ProfileComponent
       },
       {
-        // TO DO
         path: 'listProducts',
         component: ListProductsComponent
       },

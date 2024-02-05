@@ -1,0 +1,61 @@
+<mat-card class="card">
+    <mat-card-header>
+        <div mat-card-avatar class="icon"></div>
+        <mat-card-title class="cursor-pointer">
+            {{ product!.name }}
+        </mat-card-title>
+        <mat-card-subtitle>
+            {{ product!.company.name }}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-divider></mat-divider>
+        <div class="row">
+            <span class="label">Price:</span>
+            <span class="text">{{ product!.price }} €</span>
+        </div>
+        <div class="row">
+            <span class="label">Description:</span>
+            <span class="text">{{ product!.description }}</span>
+        </div>
+        <div class="row">
+            <span class="label">Rating:</span>
+            <span class="text">{{ product!.rating }} </span>
+        </div>
+        <div class="row">
+            <span class="label">Categories:</span>
+            <span class="text">
+                <ng-container *ngFor="let category of product?.category; let last = last">
+                    {{ category }}
+                    <ng-container *ngIf="!last">, </ng-container>
+                </ng-container>
+            </span>
+        </div>
+        <div class="row">
+            <span class="label">Company location:</span>
+            <span class="text">{{ product!.company.location }} </span>
+        </div>
+        <div class="row">
+            <span class="label">Company description:</span>
+            <span class="text">{{ product!.company.description }} </span>
+        </div>
+        <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions>
+        <section class="section2" *ngIf="(user$ | async)!.type == 'user'">
+            <button mat-icon-button color="basic" (click)="addProductToCard()">
+                <mat-icon>add_shopping_cart</mat-icon>
+            </button>
+        </section>
+        <section class="section1" *ngIf="(user$ | async)!.type == 'company'">
+            <button mat-icon-button color="basic" (click)="deleteProduct()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </section>
+        <section class="section2" *ngIf="(user$ | async)!.type == 'company'">
+            <button mat-icon-button color="basic" (click)="editProduct()">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </section>
+    </mat-card-actions>
+</mat-card>

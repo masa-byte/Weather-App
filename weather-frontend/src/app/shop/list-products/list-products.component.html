@@ -1,1 +1,13 @@
-<p>list-products works!</p>
+<mat-paginator #paginator class="paginator" (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
+    [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+    [pageIndex]="pageIndex" aria-label="Select page">
+</mat-paginator>
+
+<div *ngIf="(products$ | async)" class="mainDiv">
+    <div *ngFor="let p of products$ | async" class="card">
+        <app-product-display [product]="p[1]" (productInCartRequest)="addProductToCart($event)"
+            (productDeleteRequest)="deleteProduct($event)"> </app-product-display>
+    </div>
+</div>
+
+<app-background-picture [src]="'assets/garden.jpg'"></app-background-picture>

@@ -1,0 +1,44 @@
+.container {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to top, #7a9bd6, transparent);
+}
+
+.main-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-image: linear-gradient(to bottom, #7a9bd6, transparent);
+}
+
+.field {
+    width: 100%;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btn {
+    width: 40%;
+    background-color: #FFB703 !important;
+    color: white !important;
+    font-weight: bolder;
+    font-style: italic;
+}
+
+::ng-deep {
+    html {
+        --mdc-filled-text-field-container-color: #6A90D1;
+    }
+}
+

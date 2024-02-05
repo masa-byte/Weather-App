@@ -15,16 +15,21 @@ export class ProductService {
         return newProduct.save();
     }
 
+    async getTotalNumberOfProducts(): Promise<number> {
+        return this.productModel.countDocuments().exec();
+    }
+
     async getProductsByPageIndexPageSize(pageIndex: number, pageSize: number): Promise<Product[]> {
-        return this.productModel.find().skip(pageIndex * pageSize).limit(pageSize).exec();
+        return this.productModel
+        .find()
+        .skip(pageIndex * pageSize)
+        .limit(pageSize)
+        .populate('company', 'name location description')
+        .exec();
     }
 
     async getProductById(id: string): Promise<Product> {
         return this.productModel.findById(id).exec();
-    }
-
-    async getProductByCategories(categories: string[]): Promise<Product[]> {
-        return this.productModel.find({ category: { $in: categories } }).exec();
     }
 
     // TO DO

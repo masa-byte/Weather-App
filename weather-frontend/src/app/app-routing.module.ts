@@ -4,6 +4,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { SignInComponent } from './main-page/sign-in/sign-in.component';
 import { SignUpComponent } from './main-page/sign-up/sign-up.component';
 import { ShopComponent } from './shop/shop.component';
+import { ProductFormComponent } from './product/product-form/product-form.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
   {
     path: 'signUpUser',
     component: SignUpComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'productForm',
+    component: ProductFormComponent,
     pathMatch: 'full',
   },
   {

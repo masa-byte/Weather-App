@@ -20,7 +20,6 @@ export class CompanyController {
         }
     }
 
-    @Public()
     @Get(':id')
     async getCompanyById(@Param('id') id: string) {
         try {

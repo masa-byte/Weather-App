@@ -14,10 +14,13 @@ import { UserEffects } from './store/effects/user.effects';
 import { userReducer } from './store/reducers/user.reducer';
 import { ShopModule } from './shop/shop.module';
 import { CompanyEffects } from './store/effects/company.effects';
+import { ProductEffects } from './store/effects/product.effects';
+import { productReducer } from './store/reducers/product.reducer';
+import { ProductModule } from './product/product.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,13 +29,16 @@ import { CompanyEffects } from './store/effects/company.effects';
     MatSnackBarModule,
     MainPageModule,
     ShopModule,
+    ProductModule,
     StoreModule.forRoot({
       weather: weatherReducer,
       user: userReducer,
+      products: productReducer,
     }, {}),
     EffectsModule.forRoot([
       UserEffects,
-      CompanyEffects
+      CompanyEffects,
+      ProductEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

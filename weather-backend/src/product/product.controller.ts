@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product } from './models/product.schema';
+import { Public } from 'src/auth/decorators/metadata';
 
 @Controller('product')
 export class ProductController {
@@ -8,6 +9,7 @@ export class ProductController {
         private productService: ProductService
     ) { }
 
+    @Public()
     @Get()
     async getProductsByPageIndexPageSize(@Query('pageIndex') pageIndex: number, @Query('pageSize') pageSize: number) {
         try {
@@ -19,22 +21,23 @@ export class ProductController {
         }
     }
 
-    @Get(':id')
-    async getProductById(id: string) {
+    @Public()
+    @Get('total')
+    async getTotalNumberOfProducts() {
         try {
-            const product = await this.productService.getProductById(id)
-            return product
+            const total = await this.productService.getTotalNumberOfProducts()
+            return total
         }
         catch (e) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
     }
 
-    @Get('categories')
-    async getProductByCategories(@Query('categories') categories: string[]) {
+    @Get(':id')
+    async getProductById(id: string) {
         try {
-            const products = await this.productService.getProductByCategories(categories)
-            return products
+            const product = await this.productService.getProductById(id)
+            return product
         }
         catch (e) {
             return HttpStatus.INTERNAL_SERVER_ERROR;

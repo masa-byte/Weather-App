@@ -31,7 +31,6 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   addNewProduct() {
-    // TO DO
     this.router.navigate(['productForm']);
   }
 
@@ -46,7 +45,6 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   openMainPage() {
-    // TO DO
     this.router.navigate(['shop', 'listProducts']);
   }
 
