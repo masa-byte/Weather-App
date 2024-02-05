@@ -50,7 +50,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   }
 
   signIn() {
-    this.router.navigate(['/signInUser']);
+    this.router.navigate(['signInUser']);
   }
 
   signUp() {
@@ -67,8 +67,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
     this.userSubscription = this.user$.subscribe((user) => {
       if (user) {
         localStorage.setItem('userId', user.id.toString());
+        localStorage.setItem('userType', user.type.toString());
         localStorage.setItem('rememberMe', this.rememberMe.toString());
-        this.router.navigate(['/mainPage', 'listBusLines']);
+        this.router.navigate(['shop', 'listProducts']);
       }
     });
     this.errorSubscription = this.error$.subscribe((error) => {

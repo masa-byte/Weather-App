@@ -7,6 +7,7 @@ import { User } from '../user.model';
 import { UserService } from '../user.service';
 import { selectUser } from '../../store/selectors/user.selectors';
 import * as UserActions from '../../store/actions/user.actions';
+import * as CompanyActions from '../../store/actions/company.actions';
 
 @Component({
   selector: 'app-edit-profile',
@@ -21,9 +22,10 @@ export class EditProfileComponent implements OnInit {
     password: '',
     name: '',
     surname: '',
-    birthDate: new Date(),
     phone: '',
-    type: 'user'
+    employees: 0,
+    description: '',
+    type: ''
   };
 
   oldPassword: string = '';
@@ -52,7 +54,8 @@ export class EditProfileComponent implements OnInit {
           name: user.name,
           surname: user.surname,
           phone: user.phone,
-          birthDate: user.birthDate,
+          employees: user.employees,
+          description: user.description,
           type: user.type,
         };
       }
@@ -80,7 +83,11 @@ export class EditProfileComponent implements OnInit {
       }
       else {
         this.user.password = undefined;
-        this.store.dispatch(UserActions.updateUser({ user: this.user }));
+        if (this.user.type === 'user')
+          this.store.dispatch(UserActions.updateUser({ user: this.user }));
+        else if (this.user.type === 'company')
+          this.store.dispatch(CompanyActions.updateCompany({ company: this.user }));
+
         this.dialogRef.close();
       }
     }

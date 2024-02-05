@@ -64,16 +64,10 @@ div {
   font-weight: bold;
   margin-right: 10px;
   font-style: italic;
-  
   text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .profile-name {
-  display: inline;
-  margin: 0;
-}
-
-.profile-names h2 {
   display: inline;
   margin: 0;
 }
@@ -106,7 +100,6 @@ div {
 }
 
 button {
-  background-color: #C47C7F !important;
   font-weight: bold;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);

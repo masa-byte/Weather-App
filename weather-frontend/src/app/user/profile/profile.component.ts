@@ -6,6 +6,7 @@ import { Observable, of, take } from 'rxjs';
 import { User } from '../user.model';
 import { selectUser } from '../../store/selectors/user.selectors';
 import * as UserActions from '../../store/actions/user.actions';
+import * as CompanyActions from '../../store/actions/company.actions';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 
@@ -36,8 +37,14 @@ export class ProfileComponent implements OnInit {
         this.user$.pipe(take(1)).subscribe((user) => {
           if (user) {
             localStorage.removeItem('userId');
+            localStorage.removeItem('userType');
             localStorage.removeItem('rememberMe');
-            this.store.dispatch(UserActions.deleteUser({ userId: user.id }));
+            if (user.type === 'user') {
+              this.store.dispatch(UserActions.deleteUser({ userId: user.id }));
+            }
+            else if (user.type === 'company') {
+              this.store.dispatch(CompanyActions.deleteCompany({ companyId: user.id }));
+            }
             this.router.navigate(['']);
           }
         });

@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as UserActions from '../actions/user.actions';
+import * as CompanyActions from '../actions/company.actions';
 import { UserState } from '../states/user.state';
 
 const initialState: UserState = {
@@ -57,7 +58,17 @@ export const userReducer = createReducer(
         user: user,
         error: "",
     })),
+    on(CompanyActions.getCompanySuccess, (state, { company }) => ({
+        ...state,
+        user: company,
+        error: "",
+    })),
     on(UserActions.getUserFailure, (state, { error }) => ({
+        ...state,
+        user: null,
+        error: error,
+    })),
+    on(CompanyActions.getCompanyFailure, (state, { error }) => ({
         ...state,
         user: null,
         error: error,
@@ -71,7 +82,16 @@ export const userReducer = createReducer(
         user: user,
         error: "",
     })),
+    on(CompanyActions.updateCompanySuccess, (state, { company }) => ({
+        ...state,
+        user: company,
+        error: "",
+    })),
     on(UserActions.updateUserFailure, (state, { error }) => ({
+        ...state,
+        error: error,
+    })),
+    on(CompanyActions.updateCompanyFailure, (state, { error }) => ({
         ...state,
         error: error,
     })),
@@ -81,7 +101,17 @@ export const userReducer = createReducer(
         isAuthenticated: false,
         error: "",
     })),
+    on(CompanyActions.deleteCompanySuccess, (state) => ({
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        error: "",
+    })),
     on(UserActions.deleteUserFailure, (state, { error }) => ({
+        ...state,
+        error: error,
+    })),
+    on(CompanyActions.deleteCompanyFailure, (state, { error }) => ({
         ...state,
         error: error,
     }))

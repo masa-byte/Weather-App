@@ -32,7 +32,7 @@ export const authenticateFailure = createAction('[User] Authenticate Failure', p
 export const signOut = createAction('[User] Sign Out');
 
 // Get User Actions
-export const getUser = createAction('[User] Get User', props<{ userId: number; userType: string }>());
+export const getUser = createAction('[User] Get User', props<{ userId: string; userType: string }>());
 
 export const getUserSuccess = createAction('[User] Get User Success', props<{ user: User }>());
 
@@ -55,4 +55,5 @@ export const deleteUserFailure = createAction('[Profile] Delete User Failure', p
 // Misc Actions
 export const clearUserError = createAction('[User] Clear Error');
 
-export const setUserId = createAction('[User] Set User Id', props<{ userId: number }>());
+export const setUserId = createAction('[User] Set User Id', props<{ userId: string }>());
+

@@ -45,7 +45,7 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   signUp() {
-    this.router.navigate(['/signUpUser']);
+    this.router.navigate(['signUpUser']);
   }
 
   signIn() {
@@ -55,8 +55,9 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.userSubscription = this.user$.subscribe((user) => {
       if (user) {
         localStorage.setItem('userId', user.id.toString());
+        localStorage.setItem('userType', user.type.toString());
         localStorage.setItem('rememberMe', this.rememberMe.toString());
-        this.router.navigate(['/mainPage', 'listBusLines']);
+        this.router.navigate(['shop', 'listProducts']);
       }
     });
     this.errorSubscription = this.error$.subscribe((error) => {

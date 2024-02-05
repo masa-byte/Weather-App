@@ -11,7 +11,7 @@ export class CompanyService {
 
   constructor(private http: HttpClient) { }
 
-  getCompany(id: number): Observable<HttpResponse<any>> {
+  getCompany(id: string): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     return this.http.get(url + 'company/' + id,
       { headers: headers, observe: 'response' });
@@ -20,7 +20,7 @@ export class CompanyService {
   updateCompany(companyUser: CompanyUser): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     return this.http.put(url + 'company/' + companyUser.id,
-      { CompanyUser: companyUser },
+      { company: companyUser },
       { headers: headers, observe: 'response' }
     );
   }

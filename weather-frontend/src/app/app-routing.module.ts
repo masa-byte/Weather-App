@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './main-page/main-page.component';
 import { SignInComponent } from './main-page/sign-in/sign-in.component';
 import { SignUpComponent } from './main-page/sign-up/sign-up.component';
+import { ShopComponent } from './shop/shop.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
     component: SignUpComponent,
     pathMatch: 'full',
   },
+  {
+    path: 'shop',
+    loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)
+  }
 ];
 
 @NgModule({

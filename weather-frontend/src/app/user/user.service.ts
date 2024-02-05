@@ -33,7 +33,7 @@ export class UserService {
     });
   }
 
-  getUser(id: number): Observable<HttpResponse<any>> {
+  getUser(id: string): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
     return this.http.get(url + 'user/' + id,
       { headers: headers, observe: 'response' });

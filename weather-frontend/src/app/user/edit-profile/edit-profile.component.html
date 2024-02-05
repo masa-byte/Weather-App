@@ -4,6 +4,7 @@
         <mat-label>Email</mat-label>
         <input matInput type="email" [(ngModel)]="user.email" required="true" #emailInput="ngModel" />
     </mat-form-field>
+
     <mat-form-field appearance="fill" class="field">
         <mat-label>Old Password</mat-label>
         <input matInput required="false" [type]="hideOldPassword ? 'password' : 'text'" name="password"
@@ -14,6 +15,7 @@
                 }}</mat-icon>
         </button>
     </mat-form-field>
+
     <mat-form-field appearance="fill" class="field">
         <mat-label>New Password</mat-label>
         <input matInput required="false" [type]="hideNewPassword ? 'password' : 'text'" name="password"
@@ -24,34 +26,33 @@
                 }}</mat-icon>
         </button>
     </mat-form-field>
+
     <mat-form-field appearance="fill" class="field">
         <mat-label>Name</mat-label>
         <input matInput [(ngModel)]="user.name" required="true" #nameInput="ngModel" />
     </mat-form-field>
-    <mat-form-field appearance="fill" class="field" *ngIf="user.surname != undefined">
+
+    <mat-form-field appearance="fill" class="field" *ngIf="user.type == 'user'">
         <mat-label>Surname</mat-label>
         <input matInput [(ngModel)]="user.surname" required="true" #surnameInput="ngModel" />
     </mat-form-field>
-    <mat-form-field appearance="fill" class="field">
+    <mat-form-field appearance="fill" class="field" *ngIf="user.type == 'user'">
         <mat-label>Phone number</mat-label>
         <input matInput [(ngModel)]="user.phone" required="true" #phoneInput="ngModel" />
     </mat-form-field>
+
     <mat-form-field appearance="fill" class="field" *ngIf="user.type == 'company'">
-        <mat-label>Regular price factor</mat-label>
-        <input matInput [(ngModel)]="user.regularPriceFactor" required="true" #regularInput="ngModel" />
+        <mat-label>Employees</mat-label>
+        <input matInput [(ngModel)]="user.employees" required="true" #empInput="ngModel" />
     </mat-form-field>
     <mat-form-field appearance="fill" class="field" *ngIf="user.type == 'company'">
-        <mat-label>Return price factor</mat-label>
-        <input matInput [(ngModel)]="user.returnPriceFactor" required="true" #returnInput="ngModel" />
+        <mat-label>Description</mat-label>
+        <input matInput [(ngModel)]="user.description" required="true" #descInput="ngModel" />
     </mat-form-field>
-    <mat-form-field appearance="fill" class="field" *ngIf="user.type == 'company'">
-        <mat-label>Discount</mat-label>
-        <input matInput [(ngModel)]="user.discount" required="true" #discountInput="ngModel" />
-    </mat-form-field>
+
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-raised-button type="button" (click)="cancelEdit()" class="customBtn">Cancel</button>
-    <button mat-raised-button type="button" (click)="confirmEdit()"
-        [disabled]="!nameInput.valid || !emailInput.valid || !phoneInput.valid"
+    <button mat-raised-button type="button" (click)="confirmEdit()" [disabled]="!nameInput.valid || !emailInput.valid"
         class="customBtn">Save</button>
 </mat-dialog-actions>

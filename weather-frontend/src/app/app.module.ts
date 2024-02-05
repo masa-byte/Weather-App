@@ -12,6 +12,8 @@ import { MainPageModule } from './main-page/main-page.module';
 import { weatherReducer } from './store/reducers/weather.reducer';
 import { UserEffects } from './store/effects/user.effects';
 import { userReducer } from './store/reducers/user.reducer';
+import { ShopModule } from './shop/shop.module';
+import { CompanyEffects } from './store/effects/company.effects';
 
 @NgModule({
   declarations: [
@@ -23,12 +25,14 @@ import { userReducer } from './store/reducers/user.reducer';
     BrowserAnimationsModule,
     MatSnackBarModule,
     MainPageModule,
+    ShopModule,
     StoreModule.forRoot({
       weather: weatherReducer,
-      user: userReducer
+      user: userReducer,
     }, {}),
     EffectsModule.forRoot([
       UserEffects,
+      CompanyEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
