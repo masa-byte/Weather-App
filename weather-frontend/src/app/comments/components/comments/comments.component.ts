@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommentsService } from '../../services/comments.service';
 import { CommentInterface } from '../../types/comment.interface';
 
@@ -8,13 +7,15 @@ import { CommentInterface } from '../../types/comment.interface';
   templateUrl: './comments.component.html',
 })
 export class CommentsComponent implements OnInit {
+  @Input() cityName: string = 'Arilje';
+
   comments: CommentInterface[] = [];
   activeComment: string | null = null;
 
   constructor(private commentsService: CommentsService) {}
 
   ngOnInit(): void {
-    this.commentsService.getComments().subscribe((comments) => {
+    this.commentsService.getComments(this.cityName).subscribe((comments) => {
       this.comments = comments;
     });
   }
@@ -23,20 +24,19 @@ export class CommentsComponent implements OnInit {
     this.activeComment = activeComment;
   }
 
-  addComment({
-    text,
-    parentId,
-  }: {
-    text: string;
-    parentId: string | null;
-  }): void {
-    this.commentsService
-      .createComment(text, parentId)
-      .pipe(switchMap(() => this.commentsService.getComments()))
-      .subscribe((createdComments) => {
-        //this.comments = [...this.comments, createdComment];
-        this.comments = createdComments;
-        this.activeComment = null;
-      });
+  addComment(text: string): void {
+    this.commentsService.addComment(this.cityName, text)
+    .subscribe((comments) => {
+      this.comments = comments;
+      this.activeComment = null;
+    });
+  }
+
+  replyToComment(parentId: string, text: string): void {
+    this.commentsService.replyToComment(this.cityName, parentId, text)
+    .subscribe((comments) => {
+      this.comments = comments;
+      this.activeComment = null;
+    });
   }
 }

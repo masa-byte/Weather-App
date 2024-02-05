@@ -7,13 +7,12 @@
       <div class="comment-author">{{ comment.username }}</div>
       <div>{{ createdAt }}</div>
     </div>
-    <div class="comment-text">{{ comment.body }}</div>
+    <div class="comment-text">{{ comment.text }}</div>
     <div class="comment-actions">
       <div
         class="comment-action"
-        (click)="
-          setActiveComment.emit(comment.id);
-        "
+        *ngIf="canReply"
+        (click)="setActiveComment.emit(comment._id);"
       >
         Reply
       </div>
@@ -22,7 +21,8 @@
       <comment
         *ngFor="let reply of comment.replies"
         [comment]="reply"
-        [parentId]="comment.id"
+        [parentId]="comment._id"
+        [canReply]="false"
         (setActiveComment)="setActiveComment.emit($event)"
         [activeComment]="activeComment"
         (addComment)="addComment.emit($event)"
@@ -32,7 +32,7 @@
       *ngIf="isReplying()"
       submitLabel="Reply"
       [hasCancelButton]="true"
-      (handleSubmit)="addComment.emit({ text: $event, parentId: comment.id })"
+      (handleSubmit)="addComment.emit($event)"
       (handleCancel)="setActiveComment.emit(null)"
     ></comment-form>
   </div>

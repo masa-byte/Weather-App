@@ -9,11 +9,12 @@ export class CommentComponent implements OnInit {
   @Input() comment!: CommentInterface;
   @Input() activeComment!: string | null;
   @Input() parentId!: string | null;
-
+  @Input() canReply: boolean = false;
+  
   @Output()
   setActiveComment = new EventEmitter<string | null>();
   @Output()
-  addComment = new EventEmitter<{ text: string; parentId: string | null }>();
+  addComment = new EventEmitter<string>();
 
   createdAt: string = '';
 
@@ -25,6 +26,6 @@ export class CommentComponent implements OnInit {
     if (!this.activeComment) {
       return false;
     }
-    return this.activeComment === this.comment.id;
+    return this.activeComment === this.comment._id;
   }
 }

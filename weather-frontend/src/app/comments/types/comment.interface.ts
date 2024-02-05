@@ -1,6 +1,6 @@
 export interface CommentInterface {
-  id: string;
-  body: string;
+  _id: string;
+  text: string;
   username: string;
   createdAt: string;
   replies: CommentInterface[];

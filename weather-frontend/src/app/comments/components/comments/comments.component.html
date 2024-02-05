@@ -4,7 +4,7 @@
   <comment-form
     submitLabel="Write"
     [hasCancelButton]="false"
-    (handleSubmit)="addComment({ text: $event, parentId: null })"
+    (handleSubmit)="addComment($event)"
     (handleCancel)="setActiveComment(null)"
   >
   </comment-form>
@@ -13,9 +13,10 @@
       *ngFor="let comment of comments"
       [comment]="comment"
       [parentId]="null"
+      [canReply]="true"
       [activeComment]="activeComment"
       (setActiveComment)="setActiveComment($event)"
-      (addComment)="addComment($event)"
+      (addComment)="replyToComment(comment._id, $event)"
     >
     </comment>
   </div>
