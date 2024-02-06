@@ -4,10 +4,11 @@ import { Product } from '../../product/models/product.model';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
-import { Observable, of, Subscription, map } from 'rxjs';
+import { Observable, of, Subscription, map, switchMap, forkJoin } from 'rxjs';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { selectFilteredProducts, selectTotalNumberOfProducts } from '../../store/selectors/product.selector';
 import * as ProductActions from '../../store/actions/product.actions';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-list-products',
@@ -34,6 +35,7 @@ export class ListProductsComponent {
     private store: Store,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -44,14 +46,26 @@ export class ListProductsComponent {
       map((productEntities) => Object.entries(productEntities)),
     );
 
-    this.store.dispatch(ProductActions.loadTotalNumberOfProducts({ companyId: '' }));
-    this.store.dispatch(ProductActions.loadProductsByPageIndexPageSize(
-      {
-        pageIndex: this.pageIndex,
-        pageSize: this.pageSize,
-        companyId: ''
-      }
-    ));
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => {
+        let companyIdParam = params.get('companyId');
+        if (!companyIdParam || companyIdParam === 'undefined') {
+          companyIdParam = '';
+        }
+
+        const loadTotalNumberOfProductsAction = ProductActions.loadTotalNumberOfProducts({ companyId: companyIdParam });
+        const loadProductsAction = ProductActions.loadProductsByPageIndexPageSize({
+          pageIndex: this.pageIndex,
+          pageSize: this.pageSize,
+          companyId: companyIdParam
+        });
+
+        this.store.dispatch(loadTotalNumberOfProductsAction),
+        this.store.dispatch(loadProductsAction)
+
+        return of();
+      })
+    ).subscribe();
   }
 
   ngOnDestroy(): void {

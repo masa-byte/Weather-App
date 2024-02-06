@@ -27,13 +27,13 @@ export class ProductService {
 
   getProductsByPageIndexPageSize(pageIndex: number, pageSize: number, companyId: string): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this.http.get(url + 'product' + '?pageIndex=' + pageIndex + '&pageSize=' + pageSize,
+    return this.http.get(url + 'product' + '?pageIndex=' + pageIndex + '&pageSize=' + pageSize + '&companyId=' + companyId,
       { headers: headers, observe: 'response' });
   }
 
   getTotalNumberOfProducts(companyId: string): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this.http.get(url + 'product/total',
+    return this.http.get(url + 'product/total' + '?companyId=' + companyId,
       { headers: headers, observe: 'response' });
   }
 

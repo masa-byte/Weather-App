@@ -14,13 +14,8 @@ const routes: Routes = [
         component: ProfileComponent
       },
       {
-        path: 'listProducts',
+        path: 'listProducts/:companyId',
         component: ListProductsComponent
-      },
-      {
-        // TO DO
-        path: 'myProducts',
-        component: ProfileComponent
       },
       {
         // TO DO

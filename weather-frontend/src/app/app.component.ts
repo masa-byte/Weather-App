@@ -32,7 +32,7 @@ export class AppComponent {
           else if (savedUserType == 'company')
             this.store.dispatch(CompanyActions.setCompanyId({ companyId: savedUserId as string }));
 
-          this.router.navigate(['shop', 'listProducts']);
+          this.router.navigate(['shop', 'listProducts', 'undefined']);
         }
         else {
           localStorage.removeItem('userId');

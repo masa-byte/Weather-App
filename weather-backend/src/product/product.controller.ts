@@ -9,11 +9,14 @@ export class ProductController {
         private productService: ProductService
     ) { }
 
-    @Public()
     @Get()
-    async getProductsByPageIndexPageSize(@Query('pageIndex') pageIndex: number, @Query('pageSize') pageSize: number) {
+    async getProductsByPageIndexPageSize(
+        @Query('pageIndex') pageIndex: number, 
+        @Query('pageSize') pageSize: number,
+        @Query('companyId') companyId: string
+        ) {
         try {
-            const products = await this.productService.getProductsByPageIndexPageSize(pageIndex, pageSize)
+            const products = await this.productService.getProductsByPageIndexPageSize(pageIndex, pageSize, companyId)
             return products
         }
         catch (e) {
@@ -21,11 +24,10 @@ export class ProductController {
         }
     }
 
-    @Public()
     @Get('total')
-    async getTotalNumberOfProducts() {
+    async getTotalNumberOfProducts(@Query('companyId') companyId: string) {
         try {
-            const total = await this.productService.getTotalNumberOfProducts()
+            const total = await this.productService.getTotalNumberOfProducts(companyId)
             return total
         }
         catch (e) {

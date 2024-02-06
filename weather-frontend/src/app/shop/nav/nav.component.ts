@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectUserType } from '../../store/selectors/user.selectors';
+import { selectUser, selectUserType } from '../../store/selectors/user.selectors';
 import * as UserAction from '../../store/actions/user.actions';
 import { Subscription } from 'rxjs';
 
@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 export class NavComponent implements OnInit, OnDestroy {
 
   userType: string | undefined = '';
+  userId: string | null = '';
   subscription: Subscription = new Subscription();
 
   constructor(
@@ -21,8 +22,11 @@ export class NavComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.store.select(selectUserType).subscribe((userType) => {
-      this.userType = userType;
+    this.subscription = this.store.select(selectUser).subscribe((user) => {
+      if (user) {
+        this.userType = user?.type;
+        this.userId = user?.id;
+      }
     });
   }
 
@@ -35,8 +39,7 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   openMyProducts() {
-    // TO DO
-    this.router.navigate(['shop', 'myProducts']);
+    this.router.navigate(['shop', 'listProducts', `${this.userId}`]);
   }
 
   openMyOrders() {
@@ -45,7 +48,7 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   openMainPage() {
-    this.router.navigate(['shop', 'listProducts']);
+    this.router.navigate(['shop', 'listProducts', 'undefined']);
   }
 
   openWeatherApp() {

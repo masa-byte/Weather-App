@@ -14,17 +14,28 @@ export class ProductService {
         return newProduct.save();
     }
 
-    async getTotalNumberOfProducts(): Promise<number> {
-        return this.productModel.countDocuments().exec();
+    async getTotalNumberOfProducts(companyId: string): Promise<number> {
+        if (companyId.length > 0)
+            return this.productModel.countDocuments({ company: companyId }).exec();
+        else
+            return this.productModel.countDocuments().exec();
     }
 
-    async getProductsByPageIndexPageSize(pageIndex: number, pageSize: number): Promise<Product[]> {
-        return this.productModel
-            .find()
-            .skip(pageIndex * pageSize)
-            .limit(pageSize)
-            .populate('company', 'name location description')
-            .exec();
+    async getProductsByPageIndexPageSize(pageIndex: number, pageSize: number, companyId: string): Promise<Product[]> {
+        if (companyId.length > 0)
+            return this.productModel
+                .find({ company: companyId })
+                .skip(pageIndex * pageSize)
+                .limit(pageSize)
+                .populate('company', 'name location description')
+                .exec();
+        else
+            return this.productModel
+                .find()
+                .skip(pageIndex * pageSize)
+                .limit(pageSize)
+                .populate('company', 'name location description')
+                .exec();
     }
 
     async getProductById(id: string): Promise<Product> {

@@ -42,6 +42,7 @@ export class CompanyController {
         }
     }
 
+    @Public()
     @Post()
     async createCompany(@Body('company') company: Company) {
         try {
