@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { WeatherService } from '../weather/weather.service';
+import { WeatherService } from '../forecast/weather.service';
 import { switchMap, of } from 'rxjs';
 import { currentWeatherData, dailyWeatherData, hourlyWeatherData } from '../forecast/forecast.model';
 import { weatherCodes } from '../environment/environment';
@@ -36,7 +36,6 @@ export class MainPageComponent implements OnInit {
   }
 
   openShopPage() {
-    // for now
     this.router.navigate(['/signInUser']);
   }
 

@@ -49,5 +49,16 @@
             <p>Wind Speed 10m max</p>
             <p>{{ dailyWeather.windSpeed10mMax }}km/h</p>
         </div>
+
+        <div class="daily-details-item" *ngIf="hasAlerts()">
+            <p style="color: red; font-size: larger;">Alerts</p>
+            <div *ngFor="let alert of getAlerts()">
+                <div class="alert-warning">
+                    <span>⚠</span>
+                    <p>{{ alert }}</p>
+                </div>
+            </div>
+            <button mat-raised-button (click)="goToShop()">Visit Shop</button>
+        </div>
     </div>
 </div>
