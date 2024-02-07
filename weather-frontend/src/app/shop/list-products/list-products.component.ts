@@ -1,14 +1,15 @@
 import { Component, HostBinding } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Product } from '../../product/models/product.model';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
-import { Observable, of, Subscription, map, switchMap, forkJoin } from 'rxjs';
+import { Observable, of, Subscription, map, switchMap } from 'rxjs';
+import { Product } from '../../product/models/product.model';
 import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { selectFilteredProducts, selectTotalNumberOfProducts } from '../../store/selectors/product.selector';
 import * as ProductActions from '../../store/actions/product.actions';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import * as CartActions from '../../store/actions/cart.actions';
 
 @Component({
   selector: 'app-list-products',
@@ -92,7 +93,8 @@ export class ListProductsComponent {
   }
 
   addProductToCart(event: Product) {
-    // TO DO
+    this.store.dispatch(CartActions.addProductToCart({ product: event }));
+    this.openSnackBar('Product added to cart');
   }
 
   deleteProduct(event: string) {

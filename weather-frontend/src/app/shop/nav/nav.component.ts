@@ -47,6 +47,10 @@ export class NavComponent implements OnInit, OnDestroy {
     this.router.navigate(['shop', 'myOrders']);
   }
 
+  openCart() {
+    this.router.navigate(['shop', 'cart']);
+  }
+
   openMainPage() {
     this.router.navigate(['shop', 'listProducts', 'undefined']);
   }

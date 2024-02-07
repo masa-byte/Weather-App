@@ -16,6 +16,7 @@ import { BackgroundPictureModule } from '../background-picture/background-pictur
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProductModule } from '../product/product.module';
 import { SearchBarModule } from '../search-bar/search-bar.module';
+import { CartComponent } from './cart/cart.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { SearchBarModule } from '../search-bar/search-bar.module';
     NavComponent,
     ListProductsComponent,
     ProfileComponent,
+    CartComponent,
   ],
   imports: [
     CommonModule,

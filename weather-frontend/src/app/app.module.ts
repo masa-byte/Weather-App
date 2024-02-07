@@ -17,6 +17,7 @@ import { CompanyEffects } from './store/effects/company.effects';
 import { ProductEffects } from './store/effects/product.effects';
 import { productReducer } from './store/reducers/product.reducer';
 import { ProductModule } from './product/product.module';
+import { cartReducer } from './store/reducers/cart.reducer';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { ProductModule } from './product/product.module';
       weather: weatherReducer,
       user: userReducer,
       products: productReducer,
+      cart: cartReducer
     }, {}),
     EffectsModule.forRoot([
       UserEffects,

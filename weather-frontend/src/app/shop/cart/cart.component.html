@@ -1,0 +1,25 @@
+<div class="cart-container">
+    <h2>Your Shopping Cart</h2>
+
+    <div *ngIf="products.length === 0">
+        <p>Your cart is empty.</p>
+    </div>
+
+    <div *ngFor="let product of products; let i = index">
+        <div class="cart-item">
+            <span>{{ product.name }} - Price: {{ product.price }} €</span>
+            <div class="quantity-controls">
+                <button mat-raised-button (click)="updateQuantity(i, quantities[i] - 1)" [disabled]="quantities[i] <= 1">-</button>
+                <span>{{ quantities[i] }}</span>
+                <button mat-raised-button (click)="updateQuantity(i, quantities[i] + 1)">+</button>
+                <button mat-raised-button (click)="removeFromCart(i)">Remove</button>
+            </div>
+            <span class="item-total">Item Total: {{ product.price * quantities[i] }} €</span>
+        </div>
+    </div>
+
+    <div *ngIf="products.length > 0" class="total-price">
+        <h3>Total Price: {{ getTotalPrice() }} €</h3>
+        <button mat-raised-button (click)="placeOrder()" class="order-button">Place Order</button>
+    </div>
+</div>

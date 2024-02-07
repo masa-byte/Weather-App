@@ -20,6 +20,10 @@
                 <button mat-raised-button class="customButton" *ngIf="userType == 'user'" (click)="openMyOrders()">
                     My Orders
                 </button>
+                <button mat-raised-button class="customButton" *ngIf="userType == 'user'" (click)="openCart()">
+                    <mat-icon aria-label="Cart icon">shopping_cart</mat-icon>
+                    Cart
+                </button>
                 <button type="button" aria-label="Navigate to profile" mat-icon-button [matMenuTriggerFor]="profile">
                     <mat-icon aria-label="Profile icon">account_circle</mat-icon>
                 </button>
