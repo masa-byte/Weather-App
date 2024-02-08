@@ -8,6 +8,7 @@ import { CommentInterface } from '../../types/comment.interface';
 })
 export class CommentsComponent implements OnInit {
   @Input() cityName: string = 'Arilje';
+  @Input() username: string = 'Aleksa';
 
   comments: CommentInterface[] = [];
   activeComment: string | null = null;
@@ -25,7 +26,7 @@ export class CommentsComponent implements OnInit {
   }
 
   addComment(text: string): void {
-    this.commentsService.addComment(this.cityName, text)
+    this.commentsService.addComment(this.cityName, text, this.username)
     .subscribe((comments) => {
       this.comments = comments;
       this.activeComment = null;
@@ -33,7 +34,15 @@ export class CommentsComponent implements OnInit {
   }
 
   replyToComment(parentId: string, text: string): void {
-    this.commentsService.replyToComment(this.cityName, parentId, text)
+    this.commentsService.replyToComment(this.cityName, parentId, text, this.username)
+    .subscribe((comments) => {
+      this.comments = comments;
+      this.activeComment = null;
+    });
+  }
+
+  deleteComment(comment4Delete: { parentId: string | null, commentId: string }): void {
+    this.commentsService.deleteComment(this.cityName, comment4Delete.parentId, comment4Delete.commentId)
     .subscribe((comments) => {
       this.comments = comments;
       this.activeComment = null;

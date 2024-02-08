@@ -10,16 +10,23 @@ export class CommentComponent implements OnInit {
   @Input() activeComment!: string | null;
   @Input() parentId!: string | null;
   @Input() canReply: boolean = false;
-  
+  @Input() username!: string;
+
   @Output()
   setActiveComment = new EventEmitter<string | null>();
   @Output()
   addComment = new EventEmitter<string>();
+  @Output()
+  deleteComment = new EventEmitter<{ parentId: string | null, commentId: string }>();
 
   createdAt: string = '';
+  canDelete: boolean = false;
 
   ngOnInit(): void {
     this.createdAt = new Date(this.comment.createdAt).toLocaleDateString();
+    this.canDelete =
+      this.username === this.comment.username &&
+      this.comment.replies.length === 0;
   }
 
   isReplying(): boolean {

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { v4 as uuidv6 } from 'uuid';
 import { CityEntity } from './city.schema';
 import { CommentEntity } from './comment.schema';
 import { CreateCommentDto } from './create-comment.dto';
@@ -22,7 +23,6 @@ export class CommentsService {
         else {
             const createdCity = new this.cityModel({ name: cityName, comments: [{...createCommentDto, replies: []}] });
             await createdCity.save();
-            //await this.cityModel.updateOne({ name: cityName }, { $push: { comments: {...createCommentDto, replies: []} } }).exec();
         }
         const city = await this.cityModel.findOne({ name: cityName }).exec();
 
@@ -30,7 +30,20 @@ export class CommentsService {
     }
 
     async reply(cityName: string, parentId: string, createCommentDto: CreateCommentDto): Promise<any> {
-        await this.cityModel.updateOne({ name: cityName, 'comments._id': parentId }, { $push: { 'comments.$.replies': {...createCommentDto, replies: []} } }).exec();
+        await this.cityModel.updateOne({ name: cityName, 'comments._id': parentId }, { $push: { 'comments.$.replies': {...createCommentDto, replies: [], _id: uuidv6() } } }).exec();
+        const city = await this.cityModel.findOne({ name: cityName }).exec();
+        return city.comments;
+    }
+
+    async delete(cityName: string, parentId: string, commentId: string): Promise<any> {
+        if (parentId === 'unknown') {
+            await this.cityModel.updateOne({ name: cityName }, { $pull: { comments: { _id: commentId } } }).exec();
+        }
+        else {
+            const comments = await this.cityModel.findOne({ name: cityName, 'comments._id': parentId }, { 'comments.$': 1 }).exec();
+            const filderedReplies = comments.comments[0].replies.filter((reply: any) => reply._id !== commentId);
+            await this.cityModel.updateOne({ name: cityName, 'comments._id': parentId }, { $set: { 'comments.$.replies': filderedReplies } }).exec();            
+        }
         const city = await this.cityModel.findOne({ name: cityName }).exec();
         return city.comments;
     }

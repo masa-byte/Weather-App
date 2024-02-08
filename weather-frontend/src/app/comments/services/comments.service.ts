@@ -17,13 +17,14 @@ export class CommentsService {
   addComment(
     cityName: string,
     text: string,
+    username: string,
   ): Observable<CommentInterface[]> {
     return this.httpClient.post<CommentInterface[]>(
       `${this.baseURL}/${cityName}`,
       {
         text: text,
         createdAt: new Date().toISOString(),
-        username: 'Aleksa',
+        username: username,
       }
     );
   }
@@ -32,14 +33,25 @@ export class CommentsService {
     cityName: string,
     commentId: string,
     text: string,
+    username: string,
   ): Observable<CommentInterface[]> {
     return this.httpClient.put<CommentInterface[]>(
       `${this.baseURL}/${cityName}/${commentId}`,
       {
         text: text,
         createdAt: new Date().toISOString(),
-        username: 'AleksaR',
+        username: username,
       }
+    );
+  }
+
+  deleteComment(
+    cityName: string,
+    parentId: string | null,
+    commentId: string,
+  ): Observable<CommentInterface[]> {
+    return this.httpClient.delete<CommentInterface[]>(
+      `${this.baseURL}/${cityName}/${parentId ? parentId : "unknown"}/${commentId}`
     );
   }
 }

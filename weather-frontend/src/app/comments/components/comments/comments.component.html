@@ -14,9 +14,11 @@
       [comment]="comment"
       [parentId]="null"
       [canReply]="true"
+      [username]="username"
       [activeComment]="activeComment"
       (setActiveComment)="setActiveComment($event)"
       (addComment)="replyToComment(comment._id, $event)"
+      (deleteComment)="deleteComment($event)"
     >
     </comment>
   </div>

@@ -16,6 +16,13 @@
       >
         Reply
       </div>
+      <div
+        *ngIf="canDelete"
+        class="comment-action"
+        (click)="deleteComment.emit({ parentId: parentId, commentId: comment._id})"
+      >
+        Delete
+      </div>
     </div>
     <div class="replies" *ngIf="comment.replies.length > 0">
       <comment
@@ -23,9 +30,11 @@
         [comment]="reply"
         [parentId]="comment._id"
         [canReply]="false"
+        [username]="username"
         (setActiveComment)="setActiveComment.emit($event)"
         [activeComment]="activeComment"
         (addComment)="addComment.emit($event)"
+        (deleteComment)="deleteComment.emit($event)"
       ></comment>
     </div>
     <comment-form
