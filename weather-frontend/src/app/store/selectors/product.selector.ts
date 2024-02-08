@@ -20,7 +20,6 @@ export const selectTotalNumberOfProducts = createSelector(
     (state) => state.total
 );
 
-
 export const selectProductLoading = createSelector(
     selectProductState,
     (state) => state.loading

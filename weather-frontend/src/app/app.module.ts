@@ -18,6 +18,8 @@ import { ProductEffects } from './store/effects/product.effects';
 import { productReducer } from './store/reducers/product.reducer';
 import { ProductModule } from './product/product.module';
 import { cartReducer } from './store/reducers/cart.reducer';
+import { orderReducer } from './store/reducers/order.reducer';
+import { OrderEffects } from './store/effects/order.effects';
 
 @NgModule({
   declarations: [
@@ -35,12 +37,14 @@ import { cartReducer } from './store/reducers/cart.reducer';
       weather: weatherReducer,
       user: userReducer,
       products: productReducer,
-      cart: cartReducer
+      cart: cartReducer,
+      orders: orderReducer,
     }, {}),
     EffectsModule.forRoot([
       UserEffects,
       CompanyEffects,
-      ProductEffects
+      ProductEffects,
+      OrderEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

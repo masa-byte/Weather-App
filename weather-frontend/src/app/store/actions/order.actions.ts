@@ -6,8 +6,19 @@ export const addOrder = createAction(
     props<{ order: Order }>()
 );
 
+export const addOrderSuccess = createAction(
+    '[Order] Add Order Success',
+    props<{ order: Order }>()
+);
+
+export const addOrderFailure = createAction(
+    '[Order] Add Order Failure',
+    props<{ error: string }>()
+);
+
 export const loadTotalNumberOfOrders = createAction(
-    '[Order] Load Total Number Of Orders'
+    '[Order] Load Total Number Of Orders',
+    props<{ userId: string }>()
 );
 
 export const loadTotalNumberOfOrdersSuccess = createAction(
@@ -22,7 +33,7 @@ export const loadTotalNumberOfOrdersFailure = createAction(
 
 export const loadOrdersByPageIndexPageSize = createAction(
     '[Order] Load Orders By Page Index Page Size',
-    props<{ pageIndex: number, pageSize: number }>()
+    props<{ pageIndex: number, pageSize: number, userId: string }>()
 );
 
 export const loadOrdersByPageIndexPageSizeSuccess = createAction(
@@ -38,4 +49,14 @@ export const loadOrdersByPageIndexPageSizeFailure = createAction(
 export const rateOrder = createAction(
     '[Order] Rate Order',
     props<{ orderId: string, ratings: number[] }>()
+);
+
+export const rateOrderSuccess = createAction(
+    '[Order] Rate Order Success',
+    props<{ order: Order }>()
+);
+
+export const rateOrderFailure = createAction(
+    '[Order] Rate Order Failure',
+    props<{ error: string }>()
 );

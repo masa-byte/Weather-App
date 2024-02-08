@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { APP_GUARD } from '@nestjs/core';
     AuthModule,
     CompanyModule,
     ProductModule,
-    UserModule
+    UserModule,
+    OrderModule
   ],
   controllers: [AppController, FetchWeatherController, FetchCityController],
   providers: [

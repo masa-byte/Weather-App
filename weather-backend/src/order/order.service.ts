@@ -1,0 +1,43 @@
+import { Injectable } from '@nestjs/common';
+import { Order } from './order.schema';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { ProductService } from 'src/product/product.service';
+
+@Injectable()
+export class OrderService {
+
+    constructor(
+        @InjectModel(Order.name) private orderModel: Model<Order>,
+        private productService: ProductService
+    ) { }
+
+    async createOrder(order: Order): Promise<Order> {
+        const newOrder = new this.orderModel(order);
+        return newOrder.save();
+    }
+
+    async getTotalNumberOfOrders(userId: string): Promise<number> {
+        return this.orderModel.countDocuments({ user: userId }).exec();
+    }
+
+    async getOrdersByPageIndexPageSize(pageIndex: number, pageSize: number, userId: string): Promise<Order[]> {
+        return this.orderModel
+            .find({ user: userId })
+            .skip(pageIndex * pageSize)
+            .limit(pageSize)
+            .populate('products', 'name price description')
+            .exec();
+    }
+
+    async rateOrder(id: string, ratings: number[]): Promise<Order> {
+        const order = await this.orderModel.findById(id).populate('products').exec();
+        order.products.forEach((product, index) => {
+            product.gradeSum += ratings[index];
+            product.gradeCount++;
+            this.productService.updateProduct(product._id, product)
+        });
+        order.reviewed = true;
+        return this.orderModel.findByIdAndUpdate(id, order, { new: true }).exec();
+    }
+}

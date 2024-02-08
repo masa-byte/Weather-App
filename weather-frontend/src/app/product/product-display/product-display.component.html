@@ -47,12 +47,14 @@
                 <mat-icon>add_shopping_cart</mat-icon>
             </button>
         </section>
-        <section class="section1" *ngIf="(user$ | async)!.type == 'company'">
+        <section class="section1" 
+        *ngIf="(user$ | async)!.type == 'company' && (user$ | async)!.id == product!.company._id">
             <button mat-icon-button color="basic" (click)="deleteProduct()">
                 <mat-icon>delete</mat-icon>
             </button>
         </section>
-        <section class="section2" *ngIf="(user$ | async)!.type == 'company'">
+        <section class="section2" 
+        *ngIf="(user$ | async)!.type == 'company' && (user$ | async)!.id == product!.company._id">
             <button mat-icon-button color="basic" (click)="editProduct()">
                 <mat-icon>edit</mat-icon>
             </button>

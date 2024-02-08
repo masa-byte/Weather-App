@@ -5,6 +5,7 @@ import { selectCartProducts, selectCartQuantities } from '../../store/selectors/
 import * as CartActions from '../../store/actions/cart.actions';
 import { Order } from '../../order/order.model';
 import { selectUserId } from '../../store/selectors/user.selectors';
+import * as OrderActions from '../../store/actions/order.actions';
 
 @Component({
   selector: 'app-cart',
@@ -57,16 +58,16 @@ export class CartComponent implements OnInit {
   }
 
   placeOrder(): void {
-    // TO DO
     let order: Order = {
       id: '',
-      products: this.products,
+      products: this.products.map(p => p.id),
       quantities: this.quantities,
       totalPrice: this.getTotalPrice(),
       user: this.userId,
       orderDate: new Date(),
       reviewed: false
     };
-    // clearCart();
+    this.store.dispatch(OrderActions.addOrder({ order: order }));
+    this.clearCart();
   }
 }

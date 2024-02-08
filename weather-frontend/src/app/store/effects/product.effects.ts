@@ -62,7 +62,8 @@ export class ProductEffects {
                 this.productService.addProduct(product).pipe(
                     map((response) => {
                         let body = response.body;
-                        let product: Product = body as Product;
+                        const { _id, ...productWithout_Id } = body;
+                        let product = productWithout_Id as Product;
 
                         return ProductActions.addProductSuccess({ product: product });
                     }),
@@ -81,7 +82,8 @@ export class ProductEffects {
                 this.productService.updateProduct(product).pipe(
                     map((response) => {
                         let body = response.body;
-                        let product: Product = body as Product;
+                        const { _id, ...productWithout_Id } = body;
+                        let product = productWithout_Id as Product;
 
                         return ProductActions.updateProductSuccess({ product: product });
                     }),
