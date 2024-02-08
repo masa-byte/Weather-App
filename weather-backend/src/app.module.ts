@@ -15,6 +15,7 @@ import { FetchWeatherController } from './fetch-weather/fetch-weather.controller
 import { FetchWeatherService } from './fetch-weather/fetch-weather.service';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [

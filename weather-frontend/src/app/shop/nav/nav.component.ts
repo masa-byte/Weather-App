@@ -43,7 +43,6 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   openMyOrders() {
-    // TO DO
     this.router.navigate(['shop', 'myOrders']);
   }
 
