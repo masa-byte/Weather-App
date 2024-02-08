@@ -1,0 +1,56 @@
+{
+  "comments": [
+    {
+      "id": "1",
+      "body": "First comment",
+      "username": "Jack",
+      "replies": [
+        {
+          "id": "3",
+          "body": "First comment first child",
+          "username": "John",
+          "createdAt": "2021-08-16T23:00:33.010+02:00",
+          "replies": []
+        }        
+      ],
+      "createdAt": "2021-08-16T23:00:33.010+02:00"
+    },
+    {
+      "id": "2",
+      "body": "Second comment",
+      "username": "John",
+      "replies": [
+        {
+          "id": "4",
+          "body": "Second comment second child",
+          "username": "John",
+          "createdAt": "2021-08-16T23:00:33.010+02:00",
+          "replies": []
+        },
+        {
+          "body": "!!",
+          "createdAt": "2022-02-10T09:16:35.943Z",
+          "username": "John",
+          "id": "fv1nmAF",
+          "replies": []
+        }
+      ],
+      "createdAt": "2021-08-16T23:00:33.010+02:00"
+    },
+    {
+      "body": "gfggf",
+      "replies": [
+        {
+          "body": "gfggf",
+          "createdAt": "2022-02-10T09:15:57.873Z",
+          "username": "John",
+          "id": "fv1nmAF",
+          "replies": []
+        }
+      ],
+      "createdAt": "2022-02-10T09:15:57.873Z",
+      "username": "John",
+      "id": "3YtrbAq"
+    }
+  ]
+}
