@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { currentWeatherData, dailyWeatherData } from '../forecast.model';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { selectCurrentWeather, selectDailyWeather } from '../../store/weather.selector';
+import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { currentWeatherData, dailyWeatherData } from '../forecast.model';
+import { selectCurrentWeather, selectDailyWeather } from '../../store/selectors/weather.selector';
+import { envLineChartOptions } from '../../environment/environment';
 
 @Component({
   selector: 'app-display',
@@ -14,22 +17,65 @@ export class DisplayComponent implements OnInit {
   dailyWeather: dailyWeatherData[] | null = null;
   selectedViewMode: 'day' | 'hour' = 'day';
 
+  // chart configuration
+  tempLineChartOptions: ChartOptions<'line'> = JSON.parse(JSON.stringify(envLineChartOptions));;
+  precipitationLineChartOptions: ChartOptions<'line'> = envLineChartOptions;
+  lineChartLegend = true;
+
+  tempLineChartData: ChartConfiguration<'line'>['data'] = {
+    labels: [],
+    datasets: []
+  };
+  precipitationLineChartData: ChartConfiguration<'line'>['data'] = {
+    labels: [],
+    datasets: []
+  };
+
   constructor(
-    private store: Store
+    private store: Store,
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
+    this.tempLineChartOptions.plugins!.title!.text = 'Temperature chart';
+    this.tempLineChartOptions.scales!['y']!.title!.text = 'Temperature (°C)';
+    this.precipitationLineChartOptions.plugins!.title!.text = 'Precipitation chart';
+    this.precipitationLineChartOptions.scales!['y']!.title!.text = 'Precipitation (mm)';
+
     this.store.select(selectCurrentWeather).subscribe((currentWeather) => {
-      this.currentWeather = currentWeather!;
+      if (currentWeather)
+        this.currentWeather = currentWeather!;
     });
     this.store.select(selectDailyWeather).subscribe((dailyWeather) => {
-      this.dailyWeather = dailyWeather!;
-      console.log(this.dailyWeather);
+      if (dailyWeather) {
+        this.dailyWeather = dailyWeather!;
+        this.tempLineChartData = {
+          datasets: [
+            { data: dailyWeather!.map((day) => day.temperature2mMax), label: 'Max °C', borderColor: 'red', fill: false },
+            { data: dailyWeather!.map((day) => day.temperature2mMin), label: 'Min °C', borderColor: 'blue', fill: false }
+          ],
+          labels: dailyWeather!.map((day) => this.formatDate(day.time))
+        };
+
+        this.precipitationLineChartData = {
+          datasets: [
+            { data: dailyWeather!.map((day) => day.showersSum), label: 'Showers (mm)', borderColor: 'blue', fill: false },
+            { data: dailyWeather!.map((day) => day.snowfallSum), label: 'Snow (cm)', borderColor: 'purple', fill: false },
+            { data: dailyWeather!.map((day) => day.rainSum), label: 'Rain (mm)', borderColor: 'green', fill: false }
+          ],
+          labels: dailyWeather!.map((day) => this.formatDate(day.time))
+        };
+      }
     });
   }
 
   toggleViewMode(mode: 'day' | 'hour'): void {
     this.selectedViewMode = mode;
+  }
+
+  formatDate(date: Date): string {
+    return this.datePipe.transform(date, 'dd-MM') as string;
   }
 
   get iconUrl(): string {

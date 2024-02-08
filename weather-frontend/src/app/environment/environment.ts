@@ -1,13 +1,53 @@
+import { ChartOptions } from "chart.js";
+
 export const url = "http://localhost:3000/";
 
 export const colors = {
-    skyBlue: '#8ECAE6',
+    skyBlue: '#61b2d8',
     midBlue: '#219EBC',
     darkBlue: '#023047',
     sand: '#E1D89F',
     yellow: '#FFB703',
     orange: '#FB8500',
 }
+
+export const envLineChartOptions: ChartOptions<'line'> = {
+    responsive: false,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: '',
+        font: { size: 18 }
+      }
+    },
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: '',
+          font: { size: 16 }
+        },
+        ticks: {
+          font: { size: 14 }
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Day',
+          font: { size: 16 }
+        },
+        ticks: {
+          font: { size: 14 }
+        }
+      }
+    },
+  };
 
 export const weatherCodes: { [key: number]: string } = {
     0: 'Clear sky',

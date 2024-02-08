@@ -1,0 +1,38 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <div class="left-group">
+                <span style="cursor: pointer; padding-right: 8px;" (click)="openMainPage()">
+                    WeatherShop  |
+                </span>
+                <span style="cursor: pointer" (click)="openWeatherApp()">
+                    WeatherApp
+                </span>
+            </div>
+            <div class="right-group">
+                <button mat-raised-button class="customButton" *ngIf="userType == 'company'"
+                    (click)="addNewProduct()">
+                    + Add new product
+                </button>
+                <button mat-raised-button class="customButton" *ngIf="userType == 'company'" (click)="openMyProducts()">
+                    Our products
+                </button>
+                <button mat-raised-button class="customButton" *ngIf="userType == 'user'" (click)="openMyOrders()">
+                    My Orders
+                </button>
+                <button mat-raised-button class="customButton" *ngIf="userType == 'user'" (click)="openCart()">
+                    <mat-icon aria-label="Cart icon">shopping_cart</mat-icon>
+                    Cart
+                </button>
+                <button type="button" aria-label="Navigate to profile" mat-icon-button [matMenuTriggerFor]="profile">
+                    <mat-icon aria-label="Profile icon">account_circle</mat-icon>
+                </button>
+                <mat-menu #profile="matMenu">
+                    <button mat-menu-item class="customButton" (click)="openProfile()">Profile</button>
+                    <button mat-menu-item class="customButton" (click)="signOut()">Sign out</button>
+                </mat-menu>
+            </div>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

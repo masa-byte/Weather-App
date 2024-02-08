@@ -100,7 +100,6 @@ export class FetchWeatherService {
             },
         };
 
-        console.log(weatherData);
         return weatherData;
     }
 }

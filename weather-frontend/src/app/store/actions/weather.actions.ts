@@ -1,6 +1,6 @@
 
 import { createAction, props } from "@ngrx/store";
-import { currentWeatherData, dailyWeatherData } from "../forecast/forecast.model";
+import { currentWeatherData, dailyWeatherData } from "../../forecast/forecast.model";
 
 export const setCurrentWeather = createAction(
     '[Weather] Set Current Weather',

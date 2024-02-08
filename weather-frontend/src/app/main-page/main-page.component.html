@@ -1,1 +1,7 @@
-<app-display> </app-display>
+<div class="background" [class.day]="isDay" [class.night]="!isDay">
+    <app-search-city-bar (cityName)="searchCityForecast($event)"> </app-search-city-bar>
+    <button mat-raised-button (click)="openShopPage()">
+        Visit our shop to get ready for the weather ahead!
+    </button>
+    <app-display> </app-display>
+</div>

@@ -1,0 +1,55 @@
+<div class="search-filter-container">
+    <mat-form-field appearance="fill">
+        <mat-label>Search</mat-label>
+        <input matInput [formControl]="searchControl" placeholder="Search" />
+        <button mat-button matPrefix [matMenuTriggerFor]="filterMenu">
+            <mat-icon>filter_list</mat-icon>
+            Filters
+        </button>
+    </mat-form-field>
+
+    <mat-menu #filterMenu="matMenu">
+
+        <div class="menu-group">
+            <h3>Sort by</h3>
+            <mat-radio-group [(ngModel)]="selectedParameter" aria-label="Select an option">
+                <mat-radio-button (click)="$event.stopPropagation()" value="noCriteria">
+                    Default
+                </mat-radio-button>
+                <mat-radio-button (click)="$event.stopPropagation()" value="price">
+                    Price
+                </mat-radio-button>
+                <mat-radio-button (click)="$event.stopPropagation()" value="rating">
+                    Rating
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="menu-group">
+            <h3>Order</h3>
+            <mat-radio-group [(ngModel)]="selectedOrder" aria-label="Select an option">
+                <mat-radio-button (click)="$event.stopPropagation()" value="asc">
+                    Ascending
+                </mat-radio-button>
+                <mat-radio-button (click)="$event.stopPropagation()" value="desc">
+                    Descending
+                </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="menu-group">
+            <h3>Category</h3>
+            <mat-checkbox *ngFor="let category of categories" [value]="category"
+                [checked]="selectedCategories.includes(category)" (change)="updateSelectedCategories(category, $event)"
+                (click)="$event.stopPropagation()">
+                {{ category }}
+            </mat-checkbox>
+        </div>
+
+        <button class="applyFilters" mat-button (click)="search()">
+            Apply Filters
+        </button>
+    </mat-menu>
+</div>

@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="main-div">
+
+        <mat-form-field appearance="fill" class="field">
+            <mat-label>Name</mat-label>
+            <input [(ngModel)]="product.name" required="true" #nameInput="ngModel" matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="field">
+            <mat-label>Price €</mat-label>
+            <input [(ngModel)]="product.price" required="true" #priceInput="ngModel" matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="field">
+            <mat-label>Description</mat-label>
+            <input [(ngModel)]="product.description" matInput />
+        </mat-form-field>
+
+        <form [formGroup]="productCategoriesFormGroup">
+            <div formArrayName="categories">
+                <div *ngFor="let cat of categories.controls; let i=index">
+                    <div [formGroupName]="i">
+                        <h3 style="margin-top: 10px">Category {{ i + 1 }}</h3>
+
+                        <mat-form-field appearance="fill" class="field">
+                            <mat-label>Category</mat-label>
+                            <mat-select formControlName="name">
+                                <mat-option *ngFor="let cat of availableCategories" [value]="cat"> {{cat}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <div>
+                            <button mat-button class="btn" (click)="removeCategory(i)">
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="add-button">
+                    <div class="center-container">
+                        <button mat-icon-button type="button" color="basic" (click)="addCategory()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="button-container">
+            <button mat-raised-button class="btn" (click)="back()">Back</button>
+            <button mat-raised-button class="btn" (click)="action()" [disabled]="!nameInput.valid || !priceInput.valid">
+                {{ isEditing ? "Save Changes" : "Add Product" }}
+            </button>
+        </div>
+    </div>
+</div>

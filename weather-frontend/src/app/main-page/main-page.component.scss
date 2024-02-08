@@ -1,0 +1,23 @@
+.background {
+    display: flex;
+    flex-direction: column;
+}
+
+.background.day {
+    background-color: #61b2d8;
+}
+
+.background.night {
+    background-color: #023047;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 15px;
+    margin-right: 15px;
+    background: linear-gradient(80deg, #FFB703, #FB8500);
+    color: white !important;
+    font-weight: bolder;
+}

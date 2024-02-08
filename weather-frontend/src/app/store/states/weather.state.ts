@@ -1,4 +1,4 @@
-import { currentWeatherData, dailyWeatherData } from "../forecast/forecast.model";
+import { currentWeatherData, dailyWeatherData } from "../../forecast/forecast.model";
 
 export interface WeatherState {
     currentWeather: currentWeatherData | null;

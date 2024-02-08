@@ -66,4 +66,13 @@
     <div *ngIf="selectedViewMode === 'hour'">
         <app-hour *ngFor="let hour of dailyWeather![0].hours" [hourlyWeather]="hour"></app-hour>
     </div>
+
+    <div class="chart-container" *ngIf="tempLineChartData.datasets[1].data.length != 0">
+        <canvas baseChart width="500" height="500" [type]="'line'" [data]="tempLineChartData"
+            [options]="tempLineChartOptions" [legend]="lineChartLegend">
+        </canvas>
+        <canvas baseChart width="500" height="500" [type]="'line'" [data]="precipitationLineChartData"
+            [options]="precipitationLineChartOptions" [legend]="lineChartLegend">
+        </canvas>
+    </div>
 </div>

@@ -1,0 +1,55 @@
+<div class="profile">
+    <div class="centeredDiv">
+        <div class="profile-picture">
+            <img [src]="img" alt="Profile Image" />
+        </div>
+        <div class="profile-name">
+            <h2>{{
+                (user$ | async)!.type == 'company' ?
+                (user$ | async)!.name :
+                (user$ | async)!.name + " " + (user$ | async)!.surname }}
+            </h2>
+        </div>
+    </div>
+    <div class="profile-details">
+        <div class="profile-row" *ngIf="(user$ | async)!.type == 'user'">
+            <span class="profile-label">Phone:</span>
+            <span>{{ (user$ | async)!.phone }}</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">Email:</span>
+            <span>{{ (user$ | async)!.email }}</span>
+        </div>
+        <div class="profile-row" *ngIf="(user$ | async)!.type == 'company'">
+            <span class="profile-label">Year founded:</span>
+            <span>{{ (user$ | async)!.yearFounded }}</span>
+        </div>
+        <div class="profile-row" *ngIf="(user$ | async)!.type == 'company'">
+            <span class="profile-label">Employees</span>
+            <span>{{ (user$ | async)!.employees }}</span>
+        </div>
+        <div class="profile-row" *ngIf="(user$ | async)!.type == 'company'">
+            <span class="profile-label">Description</span>
+            <span>{{ (user$ | async)!.description }}</span>
+        </div>
+    </div>
+
+    <div class="edit">
+        <div class="edit-profile">
+            <button type="button" aria-label="Delete profile" (click)="deleteProfile()" mat-raised-button
+                class="edit-button">
+                Delete profile
+                <mat-icon aria-label="Delete icon">delete</mat-icon>
+            </button>
+        </div>
+        <div class="edit-profile">
+            <button type="button" aria-label="Edit profile" (click)="editProfile()" mat-raised-button
+                class="edit-button">
+                Edit profile
+                <mat-icon aria-label="Edit icon">edit</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+
+<app-background-picture [src]="'assets/back2.jpg'"></app-background-picture>
