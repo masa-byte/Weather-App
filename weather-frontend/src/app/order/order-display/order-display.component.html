@@ -1,0 +1,36 @@
+<mat-card class="card">
+    <mat-card-header>
+        <div mat-card-avatar class="icon"></div>
+        <mat-card-title class="cursor-pointer">
+            {{ order!.id }}
+        </mat-card-title>
+        <mat-card-subtitle>
+            Price: {{ order!.totalPrice }} €
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-divider></mat-divider>
+        <div class="row">
+            <span class="label">Order date:</span>
+            <span class="text"> {{ order!.orderDate | date:'dd-MM-yyyy' }}</span>
+        </div>
+        <div class="row">
+            <span class="label">Price:</span>
+            <span class="text"> {{ order!.totalPrice }} €</span>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="row" *ngFor="let product of order!.products; let i = index">
+            <span class="label">Product {{ i + 1 }}:</span>
+            <span class="text">{{ product.name }} - Quantity: {{ order!.quantities[i] }}</span>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <section class="section2">
+            <button mat-icon-button color="basic" (click)="rateOrder()">
+                <mat-icon>thumb_up_alt</mat-icon>
+            </button>
+        </section>
+    </mat-card-actions>
+</mat-card>

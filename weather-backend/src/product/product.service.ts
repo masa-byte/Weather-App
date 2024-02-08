@@ -47,6 +47,7 @@ export class ProductService {
     }
 
     async updateProduct(id: string, product: Product): Promise<Product> {
+        console.log(product);
         return this.productModel.findByIdAndUpdate(id, product, { new: true }).exec();
     }
 

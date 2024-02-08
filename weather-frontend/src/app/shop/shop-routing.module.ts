@@ -4,6 +4,7 @@ import { ProfileComponent } from '../user/profile/profile.component';
 import { ShopComponent } from './shop.component';
 import { ListProductsComponent } from './list-products/list-products.component';
 import { CartComponent } from './cart/cart.component';
+import { ListOrdersComponent } from './list-orders/list-orders.component';
 
 const routes: Routes = [
   {
@@ -19,9 +20,8 @@ const routes: Routes = [
         component: ListProductsComponent
       },
       {
-        // TO DO
         path: 'myOrders',
-        component: ProfileComponent
+        component: ListOrdersComponent
       },
       {
         path: 'cart',

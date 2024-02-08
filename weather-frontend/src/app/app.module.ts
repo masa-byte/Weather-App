@@ -21,6 +21,7 @@ import { userReducer } from './store/reducers/user.reducer';
 import { weatherReducer } from './store/reducers/weather.reducer';
 import { orderReducer } from './store/reducers/order.reducer';
 import { OrderEffects } from './store/effects/order.effects';
+import { OrderModule } from './order/order.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { OrderEffects } from './store/effects/order.effects';
     MainPageModule,
     ShopModule,
     ProductModule,
+    OrderModule,
     StoreModule.forRoot({
       weather: weatherReducer,
       user: userReducer,

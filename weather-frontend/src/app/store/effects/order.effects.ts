@@ -23,6 +23,7 @@ export class OrderEffects {
                         let body = response.body;
                         const { _id, ...orderWithout_Id } = body;
                         order = orderWithout_Id as Order;
+                        order.id = _id;
 
                         return OrderActions.addOrderSuccess({ order });
                     }),
@@ -80,7 +81,8 @@ export class OrderEffects {
                         let body = response.body;
                         const { _id, ...orderWithout_Id } = body;
                         let order = orderWithout_Id as Order;
-                        
+                        order.id = _id;
+
                         return OrderActions.rateOrderSuccess({ order });
                     }),
                     catchError((error) => {

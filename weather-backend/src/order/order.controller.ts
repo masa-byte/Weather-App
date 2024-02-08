@@ -1,6 +1,7 @@
 import { Body, Controller, Get, HttpStatus, Param, Post, Put, Query } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Order } from './order.schema';
+import { Public } from 'src/auth/decorators/metadata';
 
 @Controller('order')
 export class OrderController {
@@ -18,6 +19,7 @@ export class OrderController {
         }
     }
 
+    @Public()
     @Get('total')
     async getTotalNumberOfOrders(@Query('userId') userId: string) {
         try {
@@ -29,6 +31,7 @@ export class OrderController {
         }
     }
 
+    @Public()
     @Get()
     async getOrdersByPageIndexPageSize(
         @Query('pageIndex') pageIndex: number,
@@ -44,7 +47,7 @@ export class OrderController {
         }
     }
 
-    @Put(':id')
+    @Put('rate/:id')
     async rateOrder(@Param('id') id: string, @Body('ratings') ratings: number[]) {
         try {
             const res = await this.orderService.rateOrder(id, ratings)

@@ -64,6 +64,7 @@ export class ProductEffects {
                         let body = response.body;
                         const { _id, ...productWithout_Id } = body;
                         let product = productWithout_Id as Product;
+                        product.id = _id;
 
                         return ProductActions.addProductSuccess({ product: product });
                     }),
@@ -84,6 +85,7 @@ export class ProductEffects {
                         let body = response.body;
                         const { _id, ...productWithout_Id } = body;
                         let product = productWithout_Id as Product;
+                        product.id = _id;
 
                         return ProductActions.updateProductSuccess({ product: product });
                     }),

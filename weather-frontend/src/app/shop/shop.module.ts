@@ -17,6 +17,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProductModule } from '../product/product.module';
 import { SearchBarModule } from '../search-bar/search-bar.module';
 import { CartComponent } from './cart/cart.component';
+import { ListOrdersComponent } from './list-orders/list-orders.component';
+import { OrderModule } from '../order/order.module';
+import { RatingDialogModule } from '../rating-dialog/rating-dialog.module';
 
 
 @NgModule({
@@ -26,6 +29,7 @@ import { CartComponent } from './cart/cart.component';
     ListProductsComponent,
     ProfileComponent,
     CartComponent,
+    ListOrdersComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +44,9 @@ import { CartComponent } from './cart/cart.component';
     BackgroundPictureModule,
     MatPaginatorModule,
     ProductModule,
-    SearchBarModule
+    SearchBarModule,
+    OrderModule,
+    RatingDialogModule
   ]
 })
 export class ShopModule { }

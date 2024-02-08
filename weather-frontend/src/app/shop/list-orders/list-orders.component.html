@@ -1,0 +1,11 @@
+<mat-paginator #paginator class="paginator" (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
+    [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+    [pageIndex]="pageIndex" aria-label="Select page">
+</mat-paginator>
+
+<div *ngIf="(orders$ | async)" class=" mainDiv">
+    <div *ngFor="let o of orders$ | async" class="card">
+        <app-order-display [order]="o[1]" (orderRateRequest)="rateOrder($event)"></app-order-display>
+    </div>
+</div>
+<app-background-picture [src]="'assets/garden.jpg'"></app-background-picture>

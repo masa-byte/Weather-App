@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Rate Products</h2>
+<mat-dialog-content>
+    <div *ngFor="let product of products; let i = index" class="product-rating-row">
+        <span>{{ 'Product ' + (i + 1) }}:</span>
+        <div class="rating-stars">
+            <mat-icon class="star-icon" *ngFor="let star of stars; let j = index" (click)="rate(i, j)"
+                (mouseenter)="highlightStars(i, j)" [ngClass]="{ 'star-filled': j < productRatings[i]}">
+                star
+            </mat-icon>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onCancelClick()" class="customBtn">Cancel</button>
+    <button mat-button [mat-dialog-close]="{ productRatings }" class="customBtn">Rate</button>
+</mat-dialog-actions>
