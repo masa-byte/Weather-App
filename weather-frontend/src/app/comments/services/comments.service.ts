@@ -6,7 +6,7 @@ import { CommentInterface } from '../types/comment.interface';
 @Injectable()
 export class CommentsService {
   private readonly baseURL = 'http://localhost:3000/comments';
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getComments(cityName: string): Observable<CommentInterface[]> {
     return this.httpClient.get<CommentInterface[]>(
@@ -24,7 +24,7 @@ export class CommentsService {
       {
         text: text,
         createdAt: new Date().toISOString(),
-        username: username,
+        username: username ? username : 'anoniman',
       }
     );
   }
@@ -40,7 +40,7 @@ export class CommentsService {
       {
         text: text,
         createdAt: new Date().toISOString(),
-        username: username,
+        username: username ? username : 'anoniman',
       }
     );
   }

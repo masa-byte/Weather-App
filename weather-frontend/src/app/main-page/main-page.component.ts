@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { WeatherService } from '../forecast/weather.service';
-import { switchMap, of } from 'rxjs';
-import { currentWeatherData, dailyWeatherData, hourlyWeatherData } from '../forecast/forecast.model';
-import { weatherCodes } from '../environment/environment';
-import { Store } from '@ngrx/store';
-import * as WeatherActions from '../store/actions/weather.actions';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable, Subject, map, merge, of, switchMap, take } from 'rxjs';
+import { weatherCodes } from '../environment/environment';
+import { currentWeatherData, dailyWeatherData, hourlyWeatherData } from '../forecast/forecast.model';
+import { WeatherService } from '../forecast/weather.service';
+import * as WeatherActions from '../store/actions/weather.actions';
+import { selectUser } from '../store/selectors/user.selectors';
 
 @Component({
   selector: 'app-main-page',
@@ -18,6 +19,9 @@ export class MainPageComponent implements OnInit {
   cityName: string = 'Nis';
   isDay: boolean = true;
 
+  cityName$: Subject<string> = new Subject<string>();
+  username$: Observable<string> = new Observable<string>();
+
   constructor(
     private weatherService: WeatherService,
     private snackBar: MatSnackBar,
@@ -27,11 +31,18 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit() {
     this.getWeatherData(this.cityName);
+    this.username$ = merge(
+      this.store.select(selectUser),
+      this.store.select(selectUser).pipe(take(1)),
+    ).pipe(
+      map(user => user ? user.name + user.surname : ''),
+    );
   }
 
   searchCityForecast(cityName: string) {
     if (cityName !== '') {
       this.getWeatherData(cityName);
+      this.cityName$.next(cityName);
     }
   }
 

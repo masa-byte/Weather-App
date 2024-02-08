@@ -4,4 +4,5 @@
         Visit our shop to get ready for the weather ahead!
     </button>
     <app-display> </app-display>
+    <comments [cityName$]="this.cityName$.asObservable()" [username$]="this.username$"></comments>
 </div>

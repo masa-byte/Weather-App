@@ -1,20 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainPageComponent } from './main-page.component';
-import { ForecastModule } from '../forecast/forecast.module';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { BackgroundPictureModule } from '../background-picture/background-picture.module';
+import { CommentsModule } from '../comments/comments.module';
+import { ForecastModule } from '../forecast/forecast.module';
+import { MainPageComponent } from './main-page.component';
 import { SearchCityBarComponent } from './search-city-bar/search-city-bar.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { BackgroundPictureModule } from '../background-picture/background-picture.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { BackgroundPictureModule } from '../background-picture/background-pictur
     MatInputModule,
     MatCheckboxModule,
     MatRadioModule,
-    BackgroundPictureModule
+    BackgroundPictureModule,
+    CommentsModule,
   ]
 })
 export class MainPageModule { }

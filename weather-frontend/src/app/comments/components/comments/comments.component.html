@@ -1,25 +1,12 @@
 <div class="comments">
-  <h3 class="comments-title">Comments</h3>
-  <div class="comment-form-title">Write comment</div>
-  <comment-form
-    submitLabel="Write"
-    [hasCancelButton]="false"
-    (handleSubmit)="addComment($event)"
-    (handleCancel)="setActiveComment(null)"
-  >
+  <comment-form submitLabel="Write" [hasCancelButton]="false" (handleSubmit)="addComment($event)"
+    (handleCancel)="setActiveComment(null)">
   </comment-form>
+  <div class="comment-form-title">Write comment</div>
   <div class="comments-container">
-    <comment
-      *ngFor="let comment of comments"
-      [comment]="comment"
-      [parentId]="null"
-      [canReply]="true"
-      [username]="username"
-      [activeComment]="activeComment"
-      (setActiveComment)="setActiveComment($event)"
-      (addComment)="replyToComment(comment._id, $event)"
-      (deleteComment)="deleteComment($event)"
-    >
+    <comment *ngFor="let comment of comments" [comment]="comment" [parentId]="null" [canReply]="true"
+      [username]="username" [activeComment]="activeComment" (setActiveComment)="setActiveComment($event)"
+      (addComment)="replyToComment(comment._id, $event)" (deleteComment)="deleteComment($event)">
     </comment>
   </div>
 </div>
