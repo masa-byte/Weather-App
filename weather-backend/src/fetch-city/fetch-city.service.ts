@@ -4,7 +4,6 @@ import { geoApiUrl } from 'config';
 
 @Injectable()
 export class FetchCityService {
-
     params = {
         name: '',
         count: 1,

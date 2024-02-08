@@ -1,24 +1,25 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { MongooseModule } from '@nestjs/mongoose';
+import { mongoDbConnectionString } from 'config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { FetchWeatherService } from './fetch-weather/fetch-weather.service';
-import { mongoDbConnectionString } from 'config';
-import { FetchWeatherController } from './fetch-weather/fetch-weather.controller';
-import { FetchCityService } from './fetch-city/fetch-city.service';
-import { FetchCityController } from './fetch-city/fetch-city.controller';
-import { CompanyModule } from './company/company.module';
-import { ProductModule } from './product/product.module';
-import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { RolesGuard } from './auth/guards/roles.guard';
-import { APP_GUARD } from '@nestjs/core';
-import { OrderModule } from './order/order.module';
+import { CommentsModule } from './comments/comments.module';
+import { CompanyModule } from './company/company.module';
+import { FetchCityController } from './fetch-city/fetch-city.controller';
+import { FetchCityService } from './fetch-city/fetch-city.service';
+import { FetchWeatherController } from './fetch-weather/fetch-weather.controller';
+import { FetchWeatherService } from './fetch-weather/fetch-weather.service';
+import { ProductModule } from './product/product.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(mongoDbConnectionString),
+    CommentsModule,
     AuthModule,
     CompanyModule,
     ProductModule,

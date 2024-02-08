@@ -1,0 +1,48 @@
+<div class="comment">
+  <div class="comment-image-container">
+    <img src="/assets/user-icon.png" />
+  </div>
+  <div class="comment-right-part">
+    <div class="comment-content">
+      <div class="comment-author">{{ comment.username }}</div>
+      <div>{{ createdAt }}</div>
+    </div>
+    <div class="comment-text">{{ comment.text }}</div>
+    <div class="comment-actions">
+      <div
+        class="comment-action"
+        *ngIf="canReply"
+        (click)="setActiveComment.emit(comment._id);"
+      >
+        Reply
+      </div>
+      <div
+        *ngIf="canDelete"
+        class="comment-action"
+        (click)="deleteComment.emit({ parentId: parentId, commentId: comment._id})"
+      >
+        Delete
+      </div>
+    </div>
+    <div class="replies" *ngIf="comment.replies.length > 0">
+      <comment
+        *ngFor="let reply of comment.replies"
+        [comment]="reply"
+        [parentId]="comment._id"
+        [canReply]="false"
+        [username]="username"
+        (setActiveComment)="setActiveComment.emit($event)"
+        [activeComment]="activeComment"
+        (addComment)="addComment.emit($event)"
+        (deleteComment)="deleteComment.emit($event)"
+      ></comment>
+    </div>
+    <comment-form
+      *ngIf="isReplying()"
+      submitLabel="Reply"
+      [hasCancelButton]="true"
+      (handleSubmit)="addComment.emit($event)"
+      (handleCancel)="setActiveComment.emit(null)"
+    ></comment-form>
+  </div>
+</div>
