@@ -8,18 +8,15 @@ It is a **Web application**
 <br>
 
 ### What it does
-It is an app which helps you manage bus transportation between cities. 
-You can explore bus lines, bus companies, and book tickets as a user.
-As an admin, you can manage bus companies, and use app as a regular user.
-As a bus company, you can manage your bus lines.
+It is an app which lets you see the weather forecast and the weather changes and alerts, and also lets you buy products related to weather from sustainable and eco-friendly companies.
 <br>
 
 ### Target audience
-People who want an efficient app which helps them manage bus transportation between cities.
+It is targeted at people who are interested in weather and want to buy sustainable and eco-friendly products and need to be reminded of the weather changes.
 <br>
 
 ### Tech stack
-It was written in **Angular** and **NestJS**, and uses **Redis**, and **Neo4J** as databases.
+It was written in **Angular** and **NestJS**, and uses **MongoDB** as database.
 <br>
 <br>
 
