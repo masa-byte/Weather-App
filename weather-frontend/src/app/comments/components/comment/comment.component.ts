@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CommentInterface } from '../../types/comment.interface';
+import { CommentInterface } from '../../comment.model';
 
 @Component({
   selector: 'comment',

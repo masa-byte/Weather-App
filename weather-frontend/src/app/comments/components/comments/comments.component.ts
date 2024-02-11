@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable, switchMap, tap } from 'rxjs';
-import { CommentsService } from '../../services/comments.service';
-import { CommentInterface } from '../../types/comment.interface';
+import { CommentsService } from '../../comments.service';
+import { CommentInterface } from '../../comment.model';
 
 @Component({
   selector: 'comments',
@@ -10,7 +10,7 @@ import { CommentInterface } from '../../types/comment.interface';
 export class CommentsComponent implements OnInit {
 
   @Input() cityName$: Observable<string> = new Observable<string>();
-  public cityName: string = 'Arilje';
+  public cityName: string = 'Nis';
   @Input() username$: Observable<string> = new Observable<string>();
   public username: string = 'Aleksa';
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, map, merge, of, switchMap, take } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map, merge, of, switchMap, take } from 'rxjs';
 import { weatherCodes } from '../environment/environment';
 import { currentWeatherData, dailyWeatherData, hourlyWeatherData } from '../forecast/forecast.model';
 import { WeatherService } from '../forecast/weather.service';
@@ -19,7 +19,7 @@ export class MainPageComponent implements OnInit {
   cityName: string = 'Nis';
   isDay: boolean = true;
 
-  cityName$: Subject<string> = new Subject<string>();
+  cityName$: BehaviorSubject<string> = new BehaviorSubject<string>(this.cityName);
   username$: Observable<string> = new Observable<string>();
 
   constructor(

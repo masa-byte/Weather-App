@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CommentInterface } from '../types/comment.interface';
+import { CommentInterface } from './comment.model';
+import { url } from '../environment/environment';
 
 @Injectable()
 export class CommentsService {
-  private readonly baseURL = 'http://localhost:3000/comments';
   constructor(private httpClient: HttpClient) { }
 
   getComments(cityName: string): Observable<CommentInterface[]> {
     return this.httpClient.get<CommentInterface[]>(
-      `${this.baseURL}/${cityName}`
+      url + "comments" + "/" + cityName
     );
   }
 
@@ -20,11 +20,11 @@ export class CommentsService {
     username: string,
   ): Observable<CommentInterface[]> {
     return this.httpClient.post<CommentInterface[]>(
-      `${this.baseURL}/${cityName}`,
+      url + "comments" + "/" + cityName,
       {
         text: text,
         createdAt: new Date().toISOString(),
-        username: username ? username : 'anoniman',
+        username: username ? username : 'Anonymous',
       }
     );
   }
@@ -36,11 +36,11 @@ export class CommentsService {
     username: string,
   ): Observable<CommentInterface[]> {
     return this.httpClient.put<CommentInterface[]>(
-      `${this.baseURL}/${cityName}/${commentId}`,
+      url + "comments" + "/" + cityName + "/" + commentId,
       {
         text: text,
         createdAt: new Date().toISOString(),
-        username: username ? username : 'anoniman',
+        username: username ? username : 'Anonymous',
       }
     );
   }
@@ -50,8 +50,9 @@ export class CommentsService {
     parentId: string | null,
     commentId: string,
   ): Observable<CommentInterface[]> {
+    let tmp = parentId ? parentId : "unknown";
     return this.httpClient.delete<CommentInterface[]>(
-      `${this.baseURL}/${cityName}/${parentId ? parentId : "unknown"}/${commentId}`
+      url + "comments" + "/" + cityName + "/" + tmp + "/" + commentId
     );
   }
 }
